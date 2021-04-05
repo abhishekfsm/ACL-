@@ -66,6 +66,20 @@ class Roles_model extends CI_Model{
         return $query->result_array();
     }
 
+    //fetch developer data by role name
+    public function get_developer($role_name){
+
+        if(isset($role_name)){
+            $this->db->select(array('users.user_id','users.user_name'));
+            $this->db->from('roles');
+            $this->db->where('role_name',$role_name);
+            $this->db->join('users','users.user_role_id=roles.role_id');
+            $query=$this->db->get();
+            return $query->result_array();
+
+        }return false;
+    }
+
 
 }
 ?>

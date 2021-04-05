@@ -76,6 +76,37 @@
             ?>
             
         </div>
+        <div class ="w-75 m-1">
+            <?php echo form_label('task assign to developer', 'task_assign',['class'=>'visually m-1'] );?>
+            <!-- here come all developer name with id -->
+            <?php
+                if($_SESSION['user_role_id']=='33' || $_SESSION['user_role_id']=='34'){
+                    //here pre select developer
+                    $select=array();
+                    if(isset($pre_select_developers) && count($pre_select_developers)>0){
+                        foreach($pre_select_developers as $developer){
+                            $select[]=$developer['task_assign_developer_id'];
+                        }
+                    }
+                    //here all developer present
+                    $developers_option=array();
+                    if(isset($developers) && count($developers)>0){
+                        foreach($developers as $developer){
+                            $developers_option[$developer['user_id']] = $developer['user_name'];
+                        }
+                        echo form_multiselect('task_assign[]', $developers_option,$select);
+                    } else {
+
+                        echo "<span class='text-danger'>there is no one developers,contact admin</span>";
+                    }
+                }else { 
+
+                    echo '<sapn class="text-danger">you have not authority</span>';
+                }    
+            ?>
+
+        </div>
+
         <div class="w-75 m-1">
             <?php echo form_label('status of task ', 'status_task',['class'=>'visually m-1'] );?>
             <?php

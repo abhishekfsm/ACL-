@@ -32,9 +32,27 @@
                                     );  
                             }
                             echo form_dropdown('task_project', $options);
+                        } else{
+                            echo "<span class='text-danger'>you have not assigned any project</span>";
                         }
                     ?>
                     
+                </div>
+                <div class ="w-75 m-1">
+                    <?php echo form_label('task assign to developer', 'task_assign',['class'=>'visually m-1'] );?>
+                    <!-- here come all developer name with id -->
+                    <?php
+                        $developers_option=array();
+                        if(isset($developers) && count($developers)>0){
+                            foreach($developers as $developer){
+                                $developers_option[$developer['user_id']] = $developer['user_name'];
+                            }
+                            echo form_multiselect('task_assign[]', $developers_option);
+                        } else{
+                            echo "<span class='text-danger'>there is no one developers,contact admin</span>";
+                        }
+                    ?>
+
                 </div>
                 <div class="w-75 m-1">
                     <?php echo form_label('status of task ', 'status_task',['class'=>'visually m-1'] );?>

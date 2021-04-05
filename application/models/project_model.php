@@ -83,5 +83,19 @@ class Project_model extends CI_Model{
         
     }
 
+    //get assign  project name and project id ,,only those user login 
+    public function get_project_name($user_id){
+        if(isset($user_id)){
+            $this->db->select(array('projects.project_id','projects.project_name'));
+            $this->db->from('project_assign');
+            $this->db->where_in('project_assign_manager_id',$user_id);
+            $this->db->join('projects','projects.project_id=project_assign.project_id');
+            $query=$this->db->get();
+            return $query->result_array();
+        }else{
+            return false;
+        }
+    }
+
 }
 ?>

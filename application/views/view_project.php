@@ -24,10 +24,10 @@ include('header.php');
     ?>
     <!-- <a class="btn btn-primary  " href="http://[::1]/ACL/index.php/project_handler">ADD PROJECT</a> -->
 </div>
-<div class="container border border-primary m-4">
+<div class="fluid-container border border-primary m-5">
   
   <h5 class="text-center"> views all projects</h5>
-  <table  class="table table-striped">
+  <table  class="table table-striped text-center">
     <thead class="thead-dark bg-dark text-white">
         <tr>
         <th scope="col">project id</th>
@@ -90,7 +90,7 @@ include('header.php');
           }
         }else{
           echo '</br>';
-          echo 'you have not assign any project';
+          echo 'you have not assign any project,contact admin';
           echo '</br>';
         }
       ?>  

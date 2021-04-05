@@ -10,8 +10,9 @@ class Task_model extends CI_Model{
             if($this->db->insert('tasks', $task_data)) {
 
                 $this->session->set_flashdata('task_success', 'task create Successfully');
+                return $this->db->insert_id();
                 //now check flashdata if true then first ine send email and 2nd one redirect redirect('registration_handler');
-		        redirect('task_handler');
+		        // redirect('view_task_handler');
                 } else {
 
                     $this->session->set_flashdata('alert', 'Something went wrong');
@@ -69,10 +70,16 @@ class Task_model extends CI_Model{
 
     //here delete task data on specific task id
     public function delete_task($id){
-        // echo "task-id data delete ==".$id;
-        $this->db->where('task_id', $id);
-        if($this->db->delete('tasks')){
-            redirect('http://[::1]/ACL/index.php/view_task_handler');
+        if(isset($id)){
+            $table=array('tasks','task_assign');
+            $this->db->where('task_id', $id);
+            if($this->db->delete($table)){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
         }
     }
 

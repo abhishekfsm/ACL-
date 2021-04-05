@@ -15,14 +15,19 @@ class edit_task_handler extends CI_Controller{
         }
         
         if(isset($id) && $permission_edit==true){
-    
             $this->load->model('task_model');
             $task_data['tasks']=$this->task_model->get_tasks_by_id($id);
             $task_data['projects']=$this->fetch_project_name_id($task_data);
-            // echo '<pre>';
-            // print_r($task_data);
-            // echo '</pre>';
+            //get all  developer for assign task===
+            $this->load->model('roles_model');
+            $task_data['developers']=$this->roles_model->get_developer('developer');
+            //======end=======
+
+            //pre select developer===
+            $task_data['pre_select_developers']=$this->get_developer_by_task_id($id);
+            ///=========end==========
             $this->load->view('edit_task',$task_data);
+
         } else {
             redirect('http://[::1]/ACL/index.php/view_task_handler');
         }
@@ -34,11 +39,21 @@ class edit_task_handler extends CI_Controller{
         return  $this->project_model->fetch_projects_name();
     }
 
+    //here fetch (developer name and ids) pre selected developer for task 
+    private function  get_developer_by_task_id($task_id){
+        if(isset($task_id)){
+            $this->load->model('task_assign_model');
+            return $this->task_assign_model->get_pre_developers($task_id);
+
+        }else{
+            redirect('view_task_handler');
+        }
+
+    } 
+
 
     //here receive updated task data from edit task form
-    public function receive_edit_task(){
-        // echo 'here update edit task data';
-        
+    public function receive_edit_task(){        
         //starting checking session
         $this->load->helper('session_checking');
         user_check();
@@ -68,6 +83,10 @@ class edit_task_handler extends CI_Controller{
                 'task_start_date' => $task_start_date,
                 'task_end_date'=>$task_end_date
             );    
+            print_r($task_data);
+            exit;
+
+            ///here prepare array for upate assign_task_to developers
             
             $this->load->model('task_model');
             $this->task_model->update_task_information($task_data,$task_id);
