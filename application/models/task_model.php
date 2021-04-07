@@ -53,7 +53,7 @@ class Task_model extends CI_Model{
     public function get_tasks_by_project_id($project_id){
         // echo "model for ready for fetch task".$project_id;
         if(isset($project_id)){
-            $this->db->select(array('tasks.task_id','tasks.task_name','tasks.task_description','projects.project_name',
+            $this->db->select(array('tasks.task_id','tasks.task_name','tasks.task_description','projects.project_name','projects.status1',
             'tasks.task_status1','tasks.task_status2','tasks.task_start_date','tasks.task_end_date',
             ));
             $this->db->from('tasks');
@@ -90,7 +90,8 @@ class Task_model extends CI_Model{
         // print_r($task_data);
         $this->db->where('task_id',$task_id);
         if($this->db->update('tasks', $task_data)){
-            redirect('http://[::1]/ACL/index.php/view_task_handler');
+            // redirect('http://[::1]/ACL/index.php/view_task_handler');
+            return true;
         }
         
     }

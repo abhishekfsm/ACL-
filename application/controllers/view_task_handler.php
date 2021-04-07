@@ -6,30 +6,23 @@ class View_task_handler extends CI_Controller{
         $this->load->helper('session_checking');
         user_check();
         if($_SESSION['user_role_id']=='33'||$_SESSION['user_role_id']=='34'){
-            echo 'abhi admin or manager';
             $this->load->model('task_model');
-            //start
+       
             $this->load->model('project_assign_model');
             $task_data['tasks']=$this->project_assign_model->get_task_assign_project($_SESSION['user_id']);
             $task_data['button_name']=' NEW PROJECT';
             $this->load->view('view_task',$task_data);
 
         }else if ($_SESSION['user_role_id']=='35'){
-            echo "developer login,,, here task assigned to login developer come";
 
-            //here start 0504021
+            $this->load->model('task_assign_model');
+            $task_data['tasks']=$this->task_assign_model->get_task_by_developer($_SESSION['user_id']); 
+            $this->load->view('view_task',$task_data);
         }
         else{
             $this->load->view('view_task');
             echo 'no permission';
         }
-        // $this->load->model('task_model');
-        // //start
-        // $this->load->model('project_assign_model');
-        // $task_data['tasks']=$this->project_assign_model->get_task_assign_project($_SESSION['user_id']);
-        // $task_data['button_name']=' NEW PROJECT';
-        // $this->load->view('view_task',$task_data);
-
     }
 
     //here function show task relarted to pass project_id

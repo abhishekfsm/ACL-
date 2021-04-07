@@ -25,11 +25,15 @@
                     <!-- STATRT HERE AFTER SUNDAY  HERE ONLY ASSIGNED PROJECT ACORDING TO USER -->
                     <?php
                     $options=array();
+                   
                         if(isset($projects) && count($projects)>0){
                             foreach($projects as $project){
-                                $options[] = array(
-                                    $project['project_id'] => $project['project_name'],
-                                    );  
+                                if($project['status1']=='enable') {
+
+                                    $options[] = array(
+                                        $project['project_id'] => $project['project_name'],
+                                    ); 
+                                }
                             }
                             echo form_dropdown('task_project', $options);
                         } else{

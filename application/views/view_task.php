@@ -2,7 +2,7 @@
 
 <?php
 // echo '<pre>';
-// print_r($tasks);
+//print_r($tasks);
 // print_r($button_name);
 // echo '</pre>';
 $add_task_btn_name='';
@@ -43,7 +43,7 @@ if(isset($button_name) ) {
         <th scope="col">task description</th>
         <th scope="col">task of project</th>
         <th scope="col">task status1</th>
-        <th scope="col">task status1</th>
+        <th scope="col">task status2</th>
         <th scope="col">start date</th>
         <th scope="col">end date</th>
         <th colspan="2" scope="col" >action</th>
@@ -51,29 +51,55 @@ if(isset($button_name) ) {
     </thead>
     <tbody>
       <?php 
+        //here manage projects'task if project enable then show if projeect disable then task not showing
         if(isset($tasks) && count($tasks)>0){
-      
-          //checking role delete
-          $this->load->helper('session_checking');
-          //calling for role check and check method 
-          $permission_delete='';
-          $permission_edit='';
-          if(role_check('delete_task')) { 
-            $permission_delete=true;
+          $task_data=array();
+          if(isset($_SESSION['user_role_id']) && $_SESSION['user_role_id']!='33'){
+            echo "not admin";
+            if($_SESSION['user_role_id']=='34'){
+              echo 'manager';
+              foreach($tasks as $task){
+                if($task['status1']=='enable'){
+                  $task_data[]=$task;
+                }
+              }
+            }
+            else if($_SESSION['user_role_id']=='35'){
+              echo 'developer';
+              foreach($tasks as $task){
+                if($task['status1']=='enable' && $task['task_status1']=='enable'){
+                  $task_data[]=$task;
+                }
+              }  
+            } 
           }else{
-            $permission_delete=false;
-            echo 'you have no permission of delete task';
+            echo "admin";
+            $task_data=$tasks;
           }
-          if(role_check('edit_task')){
-            $permission_edit=true;
-          }else {
-            $permission_edit=false;
-            echo 'you have no permission of edit task';
-          }
+        }
+        // ==============================================================================================
 
+        //checking role delete
+        $this->load->helper('session_checking');
+        //calling for role check and check method 
+        $permission_delete='';
+        $permission_edit='';
+        if(role_check('delete_task')) { 
+          $permission_delete=true;
+        }else{
+          $permission_delete=false;
+          echo 'you have no permission of delete task';
+        }
+        if(role_check('edit_task')){
+          $permission_edit=true;
+        }else {
+          $permission_edit=false;
+          echo 'you have no permission of edit task';
+        }
 
-          foreach($tasks as $task){    
-      ?>
+      if(isset($task_data) && count($task_data)>0){
+        foreach($task_data as $task){    
+    ?>
         <tr>
           
           <td><?php echo $task['task_name'];?></td>
@@ -93,9 +119,7 @@ if(isset($button_name) ) {
               echo '<td><a class="btn btn-danger" href="http://[::1]/ACL/index.php/view_task_handler/delete_task/'. $task['task_id'].'">delete</a></td>';
             }
           ?>
-          <!-- edit or delete button
-          <td><a class="btn btn-primary" href="http://[::1]/ACL/index.php/edit_task_handler/get_id/<?php echo $task['task_id'];?>">edit</a></td>
-          <td><a class="btn btn-danger" href="http://[::1]/ACL/index.php/view_task_handler/get_id/<?php echo $task['task_id'];?>">delete</a></td> -->
+        
 
         </tr>
       <?php 

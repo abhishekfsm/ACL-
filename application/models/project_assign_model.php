@@ -47,12 +47,13 @@ class Project_assign_model extends CI_Model{
     //get task related to assigned projects(join project assign +tasks)
     public function get_task_assign_project($user_id){
         if(isset($user_id)){
-            $this->db->select(array('tasks.task_id','tasks.task_name','tasks.task_description','project_assign.project_name',
+            $this->db->select(array('tasks.task_id','tasks.task_name','tasks.task_description','project_assign.project_name','projects.status1',
             'tasks.task_status1','tasks.task_status2','tasks.task_start_date','tasks.task_end_date',
             ));
             $this->db->from('project_assign');
             $this->db->where('project_assign_manager_id',$user_id);
             $this->db->join('tasks', 'tasks.task_project_id = project_assign.project_id');
+            $this->db->join('projects','projects.project_id=project_assign.project_id');
             $query = $this->db->get();
             return $query->result_array(); 
         }

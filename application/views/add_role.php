@@ -7,10 +7,15 @@
 // }
 include('header.php');
 ?>
-
-<div class="container border border-primary">
-<p class="text-center">add roles with permission</p>
-        <?php echo form_open('add_role_handler/collect_roles',' class="column g-3"');?>
+<!-- main body -->
+<div class="row w-100">
+    <!-- side bar start -->
+    <?php include('side_bar.php');?>
+    <!-- body part start -->
+    <div class="col-10 my-2">
+        <div class="container border border-primary">
+            <p class="text-center">add roles with permission</p>
+            <?php echo form_open('add_role_handler/collect_roles',' class="column g-3"');?>
                 <div class="w-75 m-3">
                     <?php echo form_label('roles Name', 'name',['class'=>'visually m-3'] );?>
                     <?php echo form_input([ 'name'=>'name' , 'class'=>'form-control', 'id'=>'name' ,'value'=>set_value('name'), 'PLACEHOLDER'=>'ENTER ROLES NAME']);?>
@@ -22,24 +27,20 @@ include('header.php');
                     <br>
                     <!-- here make checkbox for select methods -->
                     <?php
-                    foreach($methods as $method){
-                        echo $method['method_name'];
-                        $data = array(
-                            'name'          => 'methods[]',
-                            'id'            => $method['method_id'],
-                            'value'         => $method['method_id'],
-                            'checked'       => false,
-                            'style'         => 'margin:10px'
-                        );
-                        echo form_checkbox($data);
-                        echo '<br>';
+                        foreach($methods as $method){
+                            echo $method['method_name'];
+                            $data = array(
+                                'name'          => 'methods[]',
+                                'id'            => $method['method_id'],
+                                'value'         => $method['method_id'],
+                                'checked'       => false,
+                                'style'         => 'margin:10px'
+                            );
+                            echo form_checkbox($data);
+                            echo '<br>';
 
                     }
                     ?>
-                    
-
-
-
                     <!-- <span class="text-danger"><?php echo form_error('name');?></span> -->
                 </div>
 
@@ -63,13 +64,9 @@ include('header.php');
                         <?php echo $this->session->flashdata('error'); ?>
                     </div>
                 <?php } ?>
-            </form>
-                    <!-- edit button for roles -->
-<!--             
-                    <a class="btn btn-primary " href="http://[::1]/ACL/index.php/view_role_handler"> edit roles</a> -->
-           
+            </form>   
         </div>
-
-
-
+  </div>
+</div>
+<!-- footer -->
 <?php include('footer.php');?>

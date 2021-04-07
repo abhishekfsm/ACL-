@@ -50,11 +50,30 @@ class Project_model extends CI_Model{
     }
 
     //here delete project data on specific project id
+    //when on eproject delete then project related task,task assign,project_asisgn will be deleted 
     public function delete_project($id){
         // echo "project-id data delete ==".$id;
-        
         $this->db->where('project_id', $id);
-        if($this->db->delete(array('projects','project_assign'))){
+        $this->db->delete(array('projects','project_assign','task_assign'));
+        $affected_rows = $this->db->affected_rows();
+        echo "abhiiiiii";
+        print_r($affected_rows);
+        if($affected_rows>0){
+            return true;
+        }else{
+            return  false;
+        }
+        
+    }
+
+    //here delete project's task 
+    public function delete_tasks_of_projects($id){
+        echo "s2";
+        $this->db->query("DELETE from tasks WHERE task_project_id = '$id' ");
+        // $this->db->delete('tasks',array('task_project_id'=>$id));
+        $affected_rows = $this->db->affected_rows();
+        print_r($affected_rows);
+        if($affected_rows>0){
             redirect('http://[::1]/ACL/index.php/view_project_handler');
         }
     }
@@ -86,7 +105,7 @@ class Project_model extends CI_Model{
     //get assign  project name and project id ,,only those user login 
     public function get_project_name($user_id){
         if(isset($user_id)){
-            $this->db->select(array('projects.project_id','projects.project_name'));
+            $this->db->select(array('projects.project_id','projects.project_name','projects.status1'));
             $this->db->from('project_assign');
             $this->db->where_in('project_assign_manager_id',$user_id);
             $this->db->join('projects','projects.project_id=project_assign.project_id');

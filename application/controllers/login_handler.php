@@ -13,15 +13,10 @@ class Login_handler extends CI_Controller{
             $user_email=$this->input->post('email');
             $user_password=$this->input->post('password');
             $this->load->model('login_model');
-            $user_data=$this->login_model->get_user_data($user_email,$user_password);
+            $user_data=$this->login_model->users_roles($user_email,$user_password);
             // temporary
             // $this->load->model('registration_model');
             // $user_data=$this->registration_model->users_roles();
-
-            // print_r($user_data);
-            // exit;
-            
-            
             foreach($user_data as $user ){
                 
                 if($user_password==$user['user_password'] && $user_email==$user['user_email']) {
@@ -30,6 +25,7 @@ class Login_handler extends CI_Controller{
                         'user_name'    =>$user['user_name'],
                         'user_email'   => $user['user_email'],
                         'user_role_id' =>$user['user_role_id'],
+                        'user_role_name'=>$user['role_name'],
                         'user_logged_in' => TRUE
                     );
                     $this->session->set_userdata($newdata);
