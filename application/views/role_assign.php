@@ -1,12 +1,11 @@
 <?php
 if(isset($_SESSION['user_logged_in'])){
-  include('header.php');
+  include('reuse_files/header.php');
 }
 else{
   redirect('login_handler');
 }
 ?>
-
 
 <div class="container border border-secondary">
     <?php //print_r($user);?>
@@ -68,6 +67,5 @@ else{
 
 </div>
 
-<?php
-include('footer.php');
-?>
+<!-- footer -->
+<?php include('reuse_files/footer.php');?>

@@ -66,10 +66,10 @@ class edit_project_handler extends CI_Controller{
                 $old_managers[$project['project_assign_manager_id']]=$project['project_assign_manager_id'];
             }
         }//here old manager which have project 
-        echo "old managers";
-        print_r($old_managers);
+        // echo "old managers";
+        // print_r($old_managers);
 
-        //starting checking session
+        //starting checking user_loged in or not
         $this->load->helper('session_checking');
         user_check();
 
@@ -161,8 +161,7 @@ class edit_project_handler extends CI_Controller{
                     //after delete redirect
                     redirect('http://[::1]/ACL/index.php/view_project_handler');
                 }
-                
-
+                redirect('http://[::1]/ACL/index.php/view_project_handler');
             } else {
                 echo 'project not update';
             }

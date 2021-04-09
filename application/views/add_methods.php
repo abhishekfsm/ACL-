@@ -5,13 +5,17 @@
 // else{
 //   redirect('login_handler');
 // }
-include('header.php');
+include('reuse_files/header.php');
 ?>
-
-
-<div class="container border border-primary">
-<p class="text-center">add permission(methods)</p>
-        <?php echo form_open('add_methods_handler/collect_methods',' class="column g-3"');?>
+<!-- main body -->
+<div class="row w-100">
+    <!-- side bar start -->
+    <?php include('reuse_files/side_bar.php');?>
+    <!-- body part start -->
+    <div class="col-10 my-2">
+    <div class="container border border-primary">
+            <p class="text-center">add permission(methods)</p>
+            <?php echo form_open('add_methods_handler/collect_methods',' class="column g-3"');?>
                 <div class="w-75 m-3">
 
                     <?php echo form_label('METHODS Name', 'name',['class'=>'visually m-3'] );?>
@@ -41,7 +45,7 @@ include('header.php');
                 <?php } ?>
             </form>
         </div>
-
-
-
-<?php include('footer.php');?>
+    </div>
+</div>
+<!-- footer -->
+<?php include('reuse_files/footer.php');?>

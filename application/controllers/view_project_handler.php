@@ -31,29 +31,38 @@ class View_project_handler extends CI_Controller{
     }
 
     //here get project_id and delete data from bd on given id
-    public function delete_project($project_id=null){
-       
-        //here check perminsssion 
-        $this->load->helper('session_checking');
-        $permission_delete='';
-        if(role_check('delete_project')) { 
+    public function delete_project(){
+        $project_id=$_POST['final_delete_project'];
+        if(isset($project_id)){
 
-            $permission_delete=true;
-        } else {
+            //here check perminsssion 
+            $this->load->helper('session_checking');
+            $permission_delete='';
+            if(role_check('delete_project')) { 
 
-            $permission_delete=false;
-        }
-        if(isset($project_id) && $permission_delete==true) {
+                $permission_delete=true;
+            } else {
 
-            $this->load->model('project_model');
-            $delete_status= $this->project_model->delete_project($project_id);
-            if($delete_status) {
-                $this->project_model->delete_tasks_of_projects($project_id);
+                $permission_delete=false;
             }
+            if(isset($project_id) && $permission_delete==true) {
 
-        } else {
+                $this->load->model('project_model');
+                $delete_status= $this->project_model->delete_project($project_id);
+                if($delete_status) {
+                    $this->project_model->delete_tasks_of_projects($project_id);
+                  
+                }else{
+                    redirect('http://[::1]/ACL/index.php/view_project_handler');
+                }
+
+            } else {
+                redirect('http://[::1]/ACL/index.php/view_project_handler');
+            }
+        }else{
             redirect('http://[::1]/ACL/index.php/view_project_handler');
         }
+        
     }
 }
 

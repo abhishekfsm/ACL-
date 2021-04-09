@@ -5,7 +5,7 @@
 // else{
 //   redirect('login_handler');
 // }
-include('header.php');
+include('reuse_files/header.php');
 ?>
 <div class="row w-100">
     <!-- side bar start -->
@@ -112,7 +112,4 @@ include('header.php');
 
 
 <!-- footer -->
-<?php
-include('footer.php');
-
-?>
+<?php include('reuse_files/footer.php');?>

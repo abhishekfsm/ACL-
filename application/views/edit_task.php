@@ -1,5 +1,5 @@
 <?php 
-    include('header.php');
+    include('reuse_files/header.php');
     // echo '<pre>';
     // print_r($tasks);
     // print_r($projects);
@@ -11,7 +11,7 @@
     $task_description='';
     $task_project_id='';
     $task_status1='';
-    $task_status2='';
+    $task_priority='';
     $start_date='';
     $end_date='';
 
@@ -21,7 +21,7 @@
         $task_description=$tasks[0]['task_description'];
         $task_project_id=$tasks[0]['task_project_id'];
         $task_status1=$tasks[0]['task_status1'];
-        $task_status2=$tasks[0]['task_status2'];
+        $task_priority=$tasks[0]['task_priority'];
         $start_date=$tasks[0]['task_start_date'];
         $end_date=$tasks[0]['task_end_date'];
     } else {
@@ -125,21 +125,25 @@
         </div> 
         <!-- TODO -->
         <div class="w-75 m-1">
-            <?php echo form_label('status of task ', 'status2_task',['class'=>'visually m-1'] );?>
+            <?php echo form_label('priority of task ', 'task_priority',['class'=>'visually m-1'] );?>
             <?php 
                 //here auto fill dropdown
-                if($task_status2=='current'){
-                    $check='current';
+                if($task_priority=='high'){
+                    $check='high';
                 }
-                else {
-                    $check='delay';
+                else if($task_priority=='low'){
+                    $check='low';
+                }
+                else{
+                    $check='normal';
                 }
                 $options = array(
-                    'current'   => 'CURRENT',
-                    'delay'     => 'delay',
+                    'high'   => 'HIGH',
+                    'normal' => 'NORMAL',
+                    'low'=>'LOW'
                     
                 );
-                echo form_dropdown('status2_task', $options,$check)
+                echo form_dropdown('task_priority', $options,$check)
             ?>
         </div> 
         <div class="w-75 m-1">
@@ -192,5 +196,5 @@
     </form>
 </div>
 <!-- form end -->
-
-<?php include('footer.php');?>
+<!-- footer -->
+<?php include('reuse_files/footer.php');?>

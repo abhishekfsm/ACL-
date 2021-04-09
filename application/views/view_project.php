@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('reuse_files/header.php');
 ?>
 <!--making add role button  -->
 <div class="container text-right m-2">
@@ -26,11 +26,23 @@ include('header.php');
         </button>
       </div>
       <div class="modal-body">
-        Are you want to delete project?, if you  delete,then  project related all data will be destroy 
+        Are you want to delete <span id="p_name"></span>project?, if you  delete,then  project related all data will be destroy 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" id="delete" class="btn btn-danger" value="1">delete</button>
+        <!-- delete button  -->
+        <?php echo form_open('view_project_handler/delete_project',' class="column g-1"');?>   
+            <!-- hidden form task id -->
+            <?php
+                $data = [
+                    'type'  => 'hidden',
+                    'name'  => 'final_delete_project',
+                    'id'=>'final_delete_project'    
+                ];
+                echo form_input($data);
+            ?>
+            <?php echo form_submit(['class'=>'btn btn-danger','name'=>'delete','value'=>'delete']);?>
+        </form>
       </div>
     </div>
   </div>
@@ -94,9 +106,9 @@ include('header.php');
           if(isset($project_data) && count($project_data)>=1) {
             foreach($project_data as $project) {
       ?>
-        <tr>
+        <tr <?php if($project['status1']=='disable'){ echo 'style="opacity: 0.5;"'; } ?>>
           <td><?php echo $project['project_id'];?></td>
-          <td><?php echo $project['project_name'];?></td>
+          <td class="project_name"><?php echo $project['project_name'];?></td>
           <td><?php echo $project['project_description'];?></td>
           <td><?php echo $project['status1'];?></td>
           <td><?php echo $project['status2'];?></td>
@@ -109,17 +121,16 @@ include('header.php');
             }
             //delete button
             if($permission_delete){
-              echo '<td><a class="btn btn-danger" href="http://[::1]/ACL/index.php/view_project_handler/delete_project/'. $project['project_id'] .'">delete</a></td>';
+              echo '<td>
+                        <button type="button" class=" delete_project_button btn btn-danger" data-toggle="modal" data-target="#exampleModal"  data-project_id="'.$project['project_id'].'">
+                          delete 
+                        </button>
+                    </td>';
             }
           ?>
           <!-- view task related  -->
           <td><a class="btn btn-warning w-1" href="/ACL/index.php/view_task_handler/view_task/<?php echo $project['project_id'];?>">view task</a></td>
-          
-          <td>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                  delete with model
-            </button>
-          </td>
+
         </tr>
       <?php 
           }
@@ -129,12 +140,22 @@ include('header.php');
           echo 'you have not assign any project,contact admin';
           echo '</br>';
         }
-      ?>  
-    
-        
+      ?>      
     </tbody>
   </table>
 </div>
-<?php 
-include('footer.php');
-?>
+<!-- javascript for get the reply button value  -->
+<script>
+    $(document).ready(function(){
+      $(document).on("click",".delete_project_button", function(){
+
+        var ProjectId=$(this).data("project_id");
+        var ProjectNameForDelete=$(this).closest('tr').find('.project_name').text(); 
+        $('#p_name').val(ProjectNameForDelete); 
+        $('#final_delete_project').val(ProjectId); 
+        });
+    });
+
+</script>
+<!-- footer -->
+<?php include('reuse_files/footer.php');?>

@@ -1,4 +1,4 @@
-<?php include('header.php')?>
+<?php include('reuse_files/header.php')?>
 
 <?php
 // echo '<pre>';
@@ -36,14 +36,14 @@ if(isset($button_name) ) {
 <div class="container border border-primary m-4">
   
   <h5 class="text-center"> views all tasks</h5>
-  <table  class="table table-striped text-center" >
+  <table class="table table-striped text-center" >
     <thead class="thead-dark bg-dark text-white">
         <tr>
         <th scope="col">task name</th>
         <th scope="col">task description</th>
         <th scope="col">task of project</th>
         <th scope="col">task status1</th>
-        <th scope="col">task status2</th>
+        <th scope="col">task priority</th>
         <th scope="col">start date</th>
         <th scope="col">end date</th>
         <th colspan="2" scope="col" >action</th>
@@ -100,13 +100,30 @@ if(isset($button_name) ) {
       if(isset($task_data) && count($task_data)>0){
         foreach($task_data as $task){    
     ?>
-        <tr>
+        <!-- pass dynamic id -->
+        <tr <?php 
+              if($_SESSION['user_role_id']=='35'){
+                  if($task['task_priority']=='high'){
+                    echo  'style="background-color: red;"';
+                  }else if($task['task_priority']=='low'){
+                    echo  'style="background-color: yellow;"';
+                  }else{
+                    echo  'style="background-color: green;"';
+                  }
+                  
+              }else{
+                if($task['task_status1']=='disable'){
+                  echo 'style="opacity: 0.5;"';
+                }
+              }
+            ?>
+        >
           
           <td><?php echo $task['task_name'];?></td>
           <td><?php echo $task['task_description'];?></td>
           <td><?php echo $task['project_name'];?></td>
           <td><?php echo $task['task_status1'];?></td>
-          <td><?php echo $task['task_status2'];?></td>
+          <td><?php echo $task['task_priority'];?></td>
           <td><?php echo $task['task_start_date'];?></td>
           <td><?php echo $task['task_end_date'];?></td>
           <?php
@@ -118,8 +135,9 @@ if(isset($button_name) ) {
             if($permission_delete){
               echo '<td><a class="btn btn-danger" href="http://[::1]/ACL/index.php/view_task_handler/delete_task/'. $task['task_id'].'">delete</a></td>';
             }
+          
           ?>
-        
+          <td> <a class="btn btn-info" href="/ACL/index.php/task_comment_handler/comment/<?php if(isset($task['task_id'])){echo $task['task_id'];}?>">comment</a></td>
 
         </tr>
       <?php 
@@ -137,5 +155,5 @@ if(isset($button_name) ) {
     </tbody>
   </table>
 </div>
-
-<?php include('footer.php')?>
+<!-- footer -->
+<?php include('reuse_files/footer.php');?>

@@ -1,6 +1,6 @@
 <?php
 
-include('header.php');
+include('reuse_files/header.php');
 // print_r($project_managers);
 ?>
 <!--form start  -->
@@ -109,6 +109,5 @@ include('header.php');
             </form>
         </div>
         <!--blog form end -->
-<?php 
-include('footer.php');
-?>
+<!-- footer -->
+<?php include('reuse_files/footer.php');?>

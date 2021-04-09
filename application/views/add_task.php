@@ -1,6 +1,6 @@
 <?php
 // print_r($projects);
-     include('header.php');
+     include('reuse_files/header.php');
 ?>
 
 <!--form start  -->
@@ -29,7 +29,6 @@
                         if(isset($projects) && count($projects)>0){
                             foreach($projects as $project){
                                 if($project['status1']=='enable') {
-
                                     $options[] = array(
                                         $project['project_id'] => $project['project_name'],
                                     ); 
@@ -66,14 +65,15 @@
                 </div> 
                 <!-- TODO -->
                 <div class="w-75 m-1">
-                    <?php echo form_label('status of task ', 'status2_task',['class'=>'visually m-1'] );?>
+                    <?php echo form_label('priority of task ', 'task_priority',['class'=>'visually m-1'] );?>
                     <?php 
                         $options = array(
-                            'current'   => 'CURRENT',
-                            'delay'     => 'delay',
+                            'low'   => 'LOW',
+                            'normal'=> 'NORMAL',
+                            'high'=>'HIGH'
                             
                         );
-                        echo form_dropdown('status2_task', $options)
+                        echo form_dropdown('task_priority', $options)
                     ?>
                 </div> 
                 <div class="w-75 m-1">
@@ -124,6 +124,5 @@
             </form>
         </div>
 <!-- form end -->
-<?php 
-include('footer.php');
-?>
+<!-- footer -->
+<?php include('reuse_files/footer.php');?>

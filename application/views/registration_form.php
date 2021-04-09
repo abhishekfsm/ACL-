@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('reuse_files/header.php');
 ?>
 <div class="container border border-primary">
         <h1 class="text-center">Registration form</h1>
@@ -46,6 +46,5 @@ include('header.php');
                 <?php } ?>
             </form>
         </div>
-<?php
-include('footer.php');
-?>
+<!-- footer -->
+<?php include('reuse_files/footer.php');?>

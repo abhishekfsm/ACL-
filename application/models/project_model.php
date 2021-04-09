@@ -56,8 +56,8 @@ class Project_model extends CI_Model{
         $this->db->where('project_id', $id);
         $this->db->delete(array('projects','project_assign','task_assign'));
         $affected_rows = $this->db->affected_rows();
-        echo "abhiiiiii";
-        print_r($affected_rows);
+        // echo "abhiiiiii";
+        // print_r($affected_rows);
         if($affected_rows>0){
             return true;
         }else{

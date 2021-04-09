@@ -32,7 +32,7 @@ class Task_assign_model extends CI_Model {
     public function get_task_by_developer($user_id){
         if(isset($user_id)){
             $this->db->select(array('tasks.task_id','tasks.task_name','tasks.task_description','projects.project_name','projects.status1',
-            'tasks.task_status1','tasks.task_status2','tasks.task_start_date','tasks.task_end_date',
+            'tasks.task_status1','tasks.task_priority','tasks.task_start_date','tasks.task_end_date',
             ));
             $this->db->from('task_assign');
             $this->db->where('task_assign_developer_id',$user_id);

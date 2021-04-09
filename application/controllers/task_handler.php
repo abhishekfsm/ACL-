@@ -34,7 +34,7 @@ class  task_handler extends CI_Controller{
         $this->form_validation->set_rules('task_project', 'DESCRIPTION OF Task','required');
         $this->form_validation->set_rules('task_assign[]', 'Task assigned to developer','required');
         $this->form_validation->set_rules('status_task', 'STATUS OF Task', 'required');
-        $this->form_validation->set_rules('status2_task', 'STATUS OF Task','required');
+        $this->form_validation->set_rules('task_priority', 'PRIORITY OF Task','required');
         $this->form_validation->set_rules('start_date', 'start date of task', 'required');
         $this->form_validation->set_rules('end_date', 'end date of task','required');
         if ($this->form_validation->run()) { 
@@ -44,7 +44,7 @@ class  task_handler extends CI_Controller{
             $task_project_id=$this->input->post('task_project');
             $task_assign_developers=$this->input->post('task_assign[]');
             $task_status1=$this->input->post('status_task');
-            $task_status2=$this->input->post('status2_task');
+            $task_priority=$this->input->post('task_priority');
             $task_start_date=$this->input->post('start_date');
             $task_end_date=$this->input->post('end_date');
             $task_data = array(
@@ -52,7 +52,7 @@ class  task_handler extends CI_Controller{
                 'task_description' => $task_description,
                 'task_project_id'=>$task_project_id,
                 'task_status1'=>$task_status1,
-                'task_status2' => $task_status2,
+                'task_priority' => $task_priority,
                 'task_start_date' => $task_start_date,
                 'task_end_date'=>$task_end_date
             );    

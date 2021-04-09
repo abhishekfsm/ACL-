@@ -23,7 +23,7 @@ if(isset($project) && count($project)==1){
     redirect('http://[::1]/ACL/index.php/view_project_handler');
 }
 ?>
-<?php include('header.php')?>
+<?php include('reuse_files/header.php')?>
 <!--form start  -->
 <div class="container border border-primary">
             <h5 class="text-center">EDIT PROJECT</h5>
@@ -165,6 +165,5 @@ if(isset($project) && count($project)==1){
             </form>
         </div>
         <!--blog form end -->
-<?php 
-include('footer.php');
-?>
+<!-- footer -->
+<?php include('reuse_files/footer.php');?>

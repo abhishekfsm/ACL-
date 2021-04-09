@@ -1,14 +1,14 @@
-<!-- <?php
-// if(isset($_SESSION['user_logged_in'])){
-//   include('header.php');
-// }
-// else{
-//   redirect('login_handler');
-// }
-?> -->
-<?php include('header.php'); ?>
+
+<?php include('reuse_files/header.php'); ?>
 <!-- <?php print_r($methods);?> -->
-<!--making add method button  -->
+<!-- main body -->
+<div class="row w-100">
+  <!-- side bar start -->
+  <?php include('reuse_files/side_bar.php');?>
+  <!-- body part start -->
+  <div class="col-10 my-2">
+
+  <!--making add method button  -->
 <div class="container text-right m-2">
     <a class="btn btn-primary  " href="http://[::1]/ACL/index.php/Add_methods_handler">ADD METHOD</a>
 </div>
@@ -44,6 +44,7 @@
 </div>
 
 
-<?php 
-include('footer.php');
-?>
+  </div>
+</div>  
+<!-- footer -->
+<?php include('reuse_files/footer.php');?>

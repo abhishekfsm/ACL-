@@ -41,7 +41,7 @@ class Task_model extends CI_Model{
     //fetch tasks data and project name (with the help of join method)
     public function tasks_projects(){
         $this->db->select(array('tasks.task_id','tasks.task_name','tasks.task_description','projects.project_name',
-            'tasks.task_status1','tasks.task_status2','tasks.task_start_date','tasks.task_end_date',
+            'tasks.task_status1','tasks.task_priority','tasks.task_start_date','tasks.task_end_date',
         ));
         $this->db->from('tasks');
         $this->db->join('projects', 'projects.project_id = tasks.task_project_id');
@@ -54,7 +54,7 @@ class Task_model extends CI_Model{
         // echo "model for ready for fetch task".$project_id;
         if(isset($project_id)){
             $this->db->select(array('tasks.task_id','tasks.task_name','tasks.task_description','projects.project_name','projects.status1',
-            'tasks.task_status1','tasks.task_status2','tasks.task_start_date','tasks.task_end_date',
+            'tasks.task_status1','tasks.task_priority','tasks.task_start_date','tasks.task_end_date',
             ));
             $this->db->from('tasks');
             $this->db->where('task_project_id', $project_id);
@@ -94,6 +94,20 @@ class Task_model extends CI_Model{
             return true;
         }
         
+    }
+
+    //fetch tasks data and project name (with the help of join method)
+    public function fetch_taskProject_by_task_id($task_id){
+        $this->db->select(array('tasks.task_id','tasks.task_name','tasks.task_description',
+                                'projects.project_id','projects.project_name','projects.status1',
+                             'tasks.task_status1','tasks.task_priority','tasks.task_start_date',
+                             'tasks.task_end_date',
+        ));
+        $this->db->from('tasks');
+        $this->db->where('task_id',$task_id);
+        $this->db->join('projects', 'projects.project_id = tasks.task_project_id');
+        $query = $this->db->get();
+        return $query->result_array(); 
     }
 }
 ?>

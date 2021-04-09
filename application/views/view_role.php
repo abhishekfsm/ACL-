@@ -5,12 +5,12 @@
 // else{
 //   redirect('login_handler');
 // }
-include('header.php');
+include('reuse_files/header.php');
 ?>
 <!-- main body -->
 <div class="row w-100">
   <!-- side bar start -->
-  <?php include('side_bar.php');?>
+  <?php include('reuse_files/side_bar.php');?>
   <!-- body part start -->
   <div class="col-10 my-2">
     <!--making add role button  -->
@@ -50,7 +50,5 @@ include('header.php');
     </div>
   </div>
 </div>
-
-<?php 
-include('footer.php');
-?>
+<!-- footer -->
+<?php include('reuse_files/footer.php');?>

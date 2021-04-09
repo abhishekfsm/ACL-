@@ -8,12 +8,12 @@
 // $this->load->helper('session_checking');
 // user_check();
 ?>
-<?php  include('header.php'); ?>
+<?php  include('reuse_files/header.php'); ?>
 <?php //print_r($users_data);?>
 <div class="row w-100">
 
   <!-- side bar start -->
-  <?php include('side_bar.php');?>
+  <?php include('reuse_files/side_bar.php');?>
 
   <div class="col-10 my-5">
     <table  class="  table table-striped ">
@@ -52,5 +52,5 @@
   </div>
 </div>
 <?php
-include('footer.php');
+include('reuse_files/footer.php');
 ?>
