@@ -1,8 +1,8 @@
 <!-- header -->
-
 <?php
 include("reuse_files/header.php");
 ?>
+
 <?php
 // all variable
     $task_name='';
@@ -23,28 +23,28 @@ if(isset($tasks) && count($tasks)>0){
     $task_end_date=$tasks[0]['task_end_date'];
 }
 
-
-
-
 // array prepare for seprate comment and reply
 // print_r($comments);
 $comment_message=array();
 $reply_message=array();
-foreach($comments as $comment){
-    if($comment['parent_id']!='0'){
-        $reply_message[]=$comment;
-
+if(isset($comments) && count($comments)){
+    foreach($comments as $comment) {
+        if($comment['parent_id']!='0') {
+            $reply_message[]=$comment;
+    
+        }
+        if($comment['parent_id']=='0') {
+            $comment_message[]=$comment;
+        }
     }
-    if($comment['parent_id']=='0') {
-        $comment_message[]=$comment;
-    }
+    // echo '<br>';
+    // echo '</br>';
+    // print_r($comment_message);
+    // echo '<br>';
+    // echo '</br>';
+    // print_r($reply_message);
 }
-// echo '<br>';
-// echo '</br>';
-// print_r($comment_message);
-// echo '<br>';
-// echo '</br>';
-// print_r($reply_message);
+
 ?>
 
 
@@ -75,26 +75,24 @@ foreach($comments as $comment){
         </button>
         <hr class="mx-5">
 
-
         <!-- comment represent here -->
         <div class="row mx-5">
             <div class='col-10 mx-5' >
                 <?php
                     if(isset($comment_message) && count($comment_message)>0){
                         foreach($comment_message as $comment){
-                            
+
                 ?>
                     <div  class="accordion" id="accordionExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#comment_<?php echo $comment['id'];?>" aria-expanded="true" aria-controls="comment_<?php echo $comment['id'];?>">
                                     <?php 
-                                        echo $comment['comment_title'];
-                                        echo'<br>';
-                                        echo $comment['user_name'];
-                                        echo '('.$comment['role_name'].')';
+                                        echo "<span>By: ".$comment['user_name']."(".$comment['role_name'].") on ". $comment['comment_date']."</span>";
                                         echo'</br>';
-                                        echo $comment['comment_date'];
+                                        echo'<br>';
+                                        echo $comment['comment_title'];
+                    
                                     ?>
                                 </button>
                                 
@@ -102,44 +100,42 @@ foreach($comments as $comment){
                             <div id="comment_<?php echo $comment['id'];?>" class="accordion-collapse collapse <?php if($last_comment==$comment['id']){echo 'show';}?> "         aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>COMMENT DESCRIPTION</strong> <?php echo $comment['comment_description'];?>
-
                                 </div>
+
                                 <!-- reply of comment button -->
                                 <button type="button" class="  reply_button mx-5 btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-comment_id="<?php echo $comment['id'];?>">
                                         reply
                                 </button>
                                 <hr class="mx-5">
-                                    <!-- reply column start -->
+                                <!-- reply column start -->
+    
+                                <!-- function satrt -->
                                 <?php
                                     if(isset($reply_message) && count($reply_message)>0){
                                         foreach($reply_message as $reply){
-                                            if($comment['id']==$reply['parent_id']){
-                                                
+                                            if($comment['id']==$reply['parent_id']){                 
 
                                 ?>
-                                    <div  class="mx-5 accordion" id="reply">
+                                    <div  class="mx-3 accordion" id="reply">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#REPLY_<?php echo $reply['id'];?>" aria-expanded="true" aria-controls="REPLY_<?php echo $reply['id'];?>">
                                                     <?php 
-                                                        echo $reply['comment_title'];
-                                                        echo'<br>';
-                                                        echo $reply['user_name'];
-                                                        echo '('.$reply['role_name'].')';
-                                                        
+                                                        echo "<span>By: ".$reply['user_name']."(".$reply['role_name'].") on ". $reply['comment_date']."</span>";
                                                         echo'</br>';
-                                                        echo $reply['comment_date'];
+                                                        echo'<br>';
+                                                        echo $reply['comment_title'];
                                                     ?>
                                                 </button>
                                                 
                                             </h2>
-                                            <div id="REPLY_<?php echo $reply['id'];?>" class="accordion-collapse collapse "         aria-labelledby="headingOne" data-bs-parent="#reply">
+                                            <div id="REPLY_<?php echo $reply['id'];?>" class="accordion-collapse collapse <?php if($last_comment==$comment['id']){echo 'show';}?>"         aria-labelledby="headingOne" data-bs-parent="#reply">
                                                 <div class="accordion-body">
                                                     <strong>COMMENT DESCRIPTION</strong> <?php echo $reply['comment_description'];?>
 
                                                 </div>
-                                                <!-- reply of comment button
-                                                <button type="button" class="  reply_button mx-5 btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-comment_id="<?php echo $reply['id'];?>">
+                                                <!-- reply of comment button -->
+                                                <!-- <button type="button" class="  reply_button mx-5 btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-comment_id="<?php echo $reply['id'];?>">
                                                         reply
                                                 </button> -->
                                             </div>
@@ -153,16 +149,15 @@ foreach($comments as $comment){
                                     }
 
                                 ?>
-                                
+                                <!-- function end -->   
                             </div>
-
                         </div>
                     </div>    
                 <?php
                         }
 
                     }else{
-                        echo '<spanclass ="text-danger">there is no one commments</span>';
+                        echo '<span class ="text-danger">there is no one commments</span>';
                     }
                 ?>
                            
@@ -170,8 +165,6 @@ foreach($comments as $comment){
         </div>
 
         <!-- end -->
-       
-
 
         <!-- button end -->
         <!-- query form start (model)-->
@@ -217,12 +210,12 @@ foreach($comments as $comment){
                         ?>
                         <div class="m-1">
                             <?php echo form_label('What is query title', 'comment_title',['class'=>'visually m-1'] );?>
-                            <?php echo form_input([ 'name'=>'comment_title' , 'class'=>'form-control', 'id'=>'query_title' ,'value'=>set_value('comment_title'), 'PLACEHOLDER'=>'ENTER YOUR query']);?>
+                            <?php echo form_input([ 'name'=>'comment_title' , 'class'=>'form-control', 'id'=>'query_title' , 'PLACEHOLDER'=>'ENTER YOUR query']);?>
                             <span class="text-danger"><?php echo form_error('comment_title');?></span>
                         </div>
                         <div class=" m-1">
                             <?php echo form_label('query discription', 'commentdesc',['class'=>'visually m-1'] );?>
-                            <?php echo form_input([ 'name'=>'comment_desc' , 'class'=>'form-control', 'id'=>'email' ,'value'=>set_value('comment_desc'), 'PLACEHOLDER'=>'DESCRIPTION']);?>
+                            <?php echo form_input([ 'name'=>'comment_desc' , 'class'=>'form-control', 'id'=>'email' , 'PLACEHOLDER'=>'DESCRIPTION']);?>
                             <span class="text-danger"><?php echo form_error('comment_desc');?></span>
                         </div>
                         <?php echo form_submit(['class'=>'btn btn-primary','name'=>'submit','value'=>'submit']);?>
@@ -239,6 +232,7 @@ foreach($comments as $comment){
         <!-- qyery orm end (model) -->
     </div>
 </div> 
+
 <!-- javascript for get the reply button value  -->
 <script>
     $(document).ready(function(){
@@ -255,3 +249,8 @@ foreach($comments as $comment){
 <?php
 include("reuse_files/footer.php");
 ?>
+
+
+
+
+<!--  -->

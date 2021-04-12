@@ -10,6 +10,7 @@ $project_status1='';
 $project_status2='';
 $project_start_date='';
 $project_end_date='';
+$project_image='';
 
 if(isset($project) && count($project)==1){
     $pojetc_id=$project[0]['project_id'];
@@ -19,6 +20,7 @@ if(isset($project) && count($project)==1){
     $project_status2=$project[0]['status2'];
     $project_start_date=$project[0]['start_date'];
     $project_end_date=$project[0]['end_date'];
+    $project_image=$project[0]['project_image'];
 } else{
     redirect('http://[::1]/ACL/index.php/view_project_handler');
 }
@@ -28,7 +30,7 @@ if(isset($project) && count($project)==1){
 <div class="container border border-primary">
             <h5 class="text-center">EDIT PROJECT</h5>
 
-            <?php echo form_open('edit_project_handler/collect_project_info',' class="column g-3"');?>
+            <?php echo form_open_multipart('edit_project_handler/collect_project_info',' class="column g-3"');?>
                 <div class="w-75 m-1">
                     <!-- hidden form for project_id -->
                     <?php
@@ -140,7 +142,19 @@ if(isset($project) && count($project)==1){
                             echo form_input($data); 
                     ?>
                    
-                </div>           
+                </div>   
+
+                <!-- !--project image uplord  --> 
+               
+                
+                <div class="w-75 m-3">
+                    last image<img class="mx-3" src=" <?php echo $project_image?>" alt="previous project image" width="200" height="170" ><br>
+                    <?php echo form_label('upload your image', 'project_photo',['class'=>'visually m-3'] );?>
+                    <?php echo form_upload([ 'name'=>'project_photo' , 'class'=>'form-control','value'=>set_value('project_photo') ,'id'=>'user_photo' ]);?>
+                    <span class="text-danger"><?php echo form_error('project_photo');?></span>
+                    <?php if(isset($upload_error)){echo $upload_error;}?>
+                
+                </div>        
                  
                 <div class="w-75 m-1">
                     <?php echo form_submit(['class'=>'btn btn-primary','name'=>'submit','value'=>'submit']);?>

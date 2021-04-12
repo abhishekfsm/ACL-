@@ -3,7 +3,6 @@ class Task_comment_handler extends CI_Controller{
     public function index(){
 
     }
-
     //fetch and send comment data on view
     public function comment($task_id=null,$insert_id=null){
         //starting checking user_loged in or not
@@ -18,7 +17,7 @@ class Task_comment_handler extends CI_Controller{
             $this->load->model('task_model');
             $task_data['tasks']=$this->task_model->fetch_taskProject_by_task_id($task_id);
             $this->load->view('task_comment',$task_data);
-            print_r($task_data);
+            // print_r($task_data);
             
         }else{
             redirect('http://[::1]/ACL/index.php/view_task_handler');
@@ -39,22 +38,26 @@ class Task_comment_handler extends CI_Controller{
             $task_id=$this->input->post('task_id');
             $user_id=$this->input->post('user_id');
             $parent_id=$this->input->post('parent_id');
-          
+            if(isset($_POST['submit'])){
+                
+                //array prepare for submit query dat
+                $comment_data=array(
+                    'comment_title'=>$comment_title,
+                    'comment_description'=>$comment_description,
+                    'task_id'=>$task_id,
+                    'user_id'=>$user_id,
+                    'parent_id'=>$parent_id
+                );
+                
+                $this->load->model('comment_model');
+                $comment_insert_id=$this->comment_model->insert_comment($comment_data);
+                if(isset($comment_insert_id)){
+                    $this->comment($task_id,$comment_insert_id);
+                    // redirect()
+                }
 
-            //array prepare for submit query dat
-            $comment_data=array(
-                'comment_title'=>$comment_title,
-                'comment_description'=>$comment_description,
-                'task_id'=>$task_id,
-                'user_id'=>$user_id,
-                'parent_id'=>$parent_id
-            );
-            $this->load->model('comment_model');
-            $comment_insert_id=$this->comment_model->insert_comment($comment_data);
-            if(isset($comment_insert_id)){
-                $this->comment($task_id,$comment_insert_id);
-                // redirect()
             }
+          
            
         } else {
                 $this->load->view('task_comment');

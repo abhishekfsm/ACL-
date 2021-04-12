@@ -1,6 +1,7 @@
 <div class=" col-2 side_bar">
       <div class="user_info">
-          <img src="<?php if(isset($user_pic)){echo $user_pic;}?>" alt="user_photo">
+
+          <img src="<?php if(isset($_SESSION['user_image'])){echo $_SESSION['user_image'];}?>" alt="user_photo">
           <span class="text-center"><?php if(isset($_SESSION['user_name'])){echo $_SESSION['user_name'];}?></span>
           <span class="text-center text-danger"><?php if(isset($_SESSION['user_role_name'])){echo $_SESSION['user_role_name'];}?></span>
           <!-- here designation come  -->

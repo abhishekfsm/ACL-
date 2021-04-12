@@ -26,11 +26,20 @@ class Login_handler extends CI_Controller{
                         'user_email'   => $user['user_email'],
                         'user_role_id' =>$user['user_role_id'],
                         'user_role_name'=>$user['role_name'],
+                        'user_image'=>      $user['user_image'],
                         'user_logged_in' => TRUE
                     );
                     $this->session->set_userdata($newdata);
+                    if(isset($_SESSION['user_role_id']) && $_SESSION['user_role_id']=='33'){
                    
-                    redirect('dashboard_handler');  //here pass to dashboard and pass user info sothat we can view info of user
+                        redirect('dashboard_handler');  
+                    } else if(isset($_SESSION['user_role_id']) && $_SESSION['user_role_id']=='34'){
+                        redirect('view_project_handler');
+                    }else if(isset($_SESSION['user_role_id']) && $_SESSION['user_role_id']=='35'){
+                        redirect('view_task_handler');
+                    }else{
+                        redirect('home_handler');
+                    }
                 }
                 else{   
                     // echo "wrong password";

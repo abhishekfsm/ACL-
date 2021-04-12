@@ -26,11 +26,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('index.php/dashboard_handler');?>">Dashboard</a>
-                </li>
+        
+    
                 <?php
                     if(isset($_SESSION['user_role_id']) && $_SESSION['user_role_id']=='33'){
+                        echo '<li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="'. base_url('index.php/dashboard_handler').'">Dashboard</a>
+                            </li>';
                         echo '<li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="'. base_url('index.php/view_role_handler').'">ROLE</a>
                             </li>';
@@ -53,9 +55,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="<?php echo base_url('index.php/logout');?>">logout</a>
                 </li>
-            
-            </ul>
-            
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('index.php/home_handler');?>">home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?php echo base_url('index.php/EditProfile_handler');?>">Profile</a>
+                </li>           
+            </ul>      
         </div>
     </div>
 </nav>

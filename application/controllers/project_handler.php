@@ -40,8 +40,23 @@ class Project_handler extends CI_Controller{
         $this->form_validation->set_rules('project_manager[]', 'Choose PROJECT MANAGER OF PROJECT','required');
         $this->form_validation->set_rules('start_date', 'start date of project', 'required');
         $this->form_validation->set_rules('end_date', 'end date of project','required');
+        if(empty($_FILES['project_photo']['name'])){
+            $this->form_validation->set_rules('project_photo', 'Photo of project','required');
+        }
+      
+        // blog photo uplord configuration
+        $config = array(
+        'upload_path' => "./uploads/projects_image",
+        'allowed_types' => "gif|jpg|png|jpeg",
+        // 'overwrite' => TRUE,
+        'max_size' => "", // Can be set to particular file size , here it is 2 MB(2048 Kb)
+        'max_height' => "",
+        'max_width' => ""
+        );
+        
+        $this->load->library('upload',$config);
 
-        if ($this->form_validation->run()){
+        if ($this->form_validation->run() &&  $this->upload->do_upload('project_photo')){
           
             $project_name=$this->input->post('project_name');
             $project_description=$this->input->post('desc_project');
@@ -50,6 +65,9 @@ class Project_handler extends CI_Controller{
             $project_assign_managers=$this->input->post('project_manager[]');
             $project_start_date=$this->input->post('start_date');
             $project_end_date=$this->input->post('end_date');
+            $data = array('image_metadata' => $this->upload->data());
+            $project_image_path=base_url("uploads/projects_image/".$data['image_metadata']['raw_name'].$data['image_metadata']['file_ext']);         
+            
             
             $project_data = array(
                 'project_name' => $project_name,
@@ -57,9 +75,9 @@ class Project_handler extends CI_Controller{
                 'status1'=>$project_status1,
                 'status2' => $project_status2,
                 'start_date' => $project_start_date,
-                'end_date'=>$project_end_date
+                'end_date'=>$project_end_date,
+                'project_image'=>$project_image_path
             ); 
-            // print_r($project_data);
             $this->load->model('project_model');
             $project_id=$this->project_model->submit_project_information($project_data);
             // echo "last project insert id is ".$project_id;

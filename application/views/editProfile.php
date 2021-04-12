@@ -1,10 +1,11 @@
+<!-- this file is used for ,users can change their informtion  -->
 <?php
 include('reuse_files/header.php');
 ?>
 <div class="container border border-primary">
-        <h1 class="text-center">Registration form</h1>
+        <h1 class="text-center">you can change profile information</h1>
 
-        <?php echo form_open_multipart('registration_handler/user_registration',' class="column g-3"');?>
+        <?php echo form_open_multipart('',' class="column g-3"');?>
                 <div class="w-75 m-3">
 
                     <?php echo form_label('What is your Name', 'name',['class'=>'visually m-3'] );?>
