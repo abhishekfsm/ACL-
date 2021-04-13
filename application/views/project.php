@@ -3,24 +3,30 @@
 include('reuse_files/header.php');
 // print_r($project_managers);
 ?>
-<!--form start  -->
-<div class="container border border-primary">
-            <h5 class="text-center">ADD PROJECT</h5>
+<!-- main div -->
+<div class="row w-100">
+    <?php  
+    include('reuse_files/side_bar.php');
+    ?>
+    <div class="col-10">
+        <!--form start  -->
+        <div class="container m-2">
+            <P class="text-center">ADD PROJECT</P>
 
             <?php echo form_open_multipart('project_handler/add_project',' class="column g-3"');?>
-                <div class="w-75 m-1">
+                <div class="w-75 my-2">
 
-                    <?php echo form_label('What is NAME of PROJECT ', 'project_name',['class'=>'visually m-1'] );?>
+                    <?php echo form_label('NAME Of Project ', 'project_name',['class'=>'visually m-1'] );?>
                     <?php echo form_input([ 'name'=>'project_name' , 'class'=>'form-control', 'id'=>'name' ,'value'=>set_value('project_name'), 'PLACEHOLDER'=>'ENTER title of blog ']);?>
                     <span class="text-danger"><?php echo form_error('project_name');?></span>
                 </div>
-                <div class="w-75 m-1">
-                    <?php echo form_label('description of project ', 'desc_project',['class'=>'visually m-1'] );?>
+                <div class="w-75 my-2">
+                    <?php echo form_label('Description of Project ', 'desc_project',['class'=>'visually m-1'] );?>
                     <?php echo form_textarea([ 'name'=>'desc_project' , 'class'=>'form-control', 'id'=>'email' ,'value'=>set_value('desc_project'), 'PLACEHOLDER'=>'ENTER description of blog']);?>
                     <span class="text-danger"><?php echo form_error('desc_project');?></span>
                 </div>
-                <div class="w-75 m-1">
-                    <?php echo form_label('status of project ', 'status_project',['class'=>'visually m-1'] );?>
+                <div class="w-75 my-2">
+                    <?php echo form_label('Status Of Project ', 'status_project',['class'=>'visually m-1'] );?>
                     <!-- <?php 
                         $options = array(
                             'enable'         => 'do enable mode of prject',
@@ -33,8 +39,8 @@ include('reuse_files/header.php');
                     <?php echo  form_radio('status_project', 'disable', @$fchecked).form_label('disable','enable'); ?>
                 </div> 
             
-                <div class="w-75 m-1">
-                    <?php echo form_label('status of project ', 'status2_project',['class'=>'visually m-1'] );?>
+                <div class="w-75 my-2">
+                    <?php echo form_label('Status Of Project ', 'status2_project',['class'=>'visually my-1'] );?>
                     <?php 
                         $options = array(
                             'current'   => 'CURRENT',
@@ -46,8 +52,8 @@ include('reuse_files/header.php');
                     ?>
                 </div> 
                 <!-- project asssign to project manager -->
-                <div class="w-75 m-1">
-                    <?php echo form_label(' project assign to project manager ', 'project_manager',['class'=>'visually m-1'] );?>
+                <div class="w-75 my-2">
+                    <?php echo form_label('Project Assign to Project Manager ', 'project_manager',['class'=>'visually my-1'] );?>
                     <?php 
                         if(isset($project_managers) && count($project_managers)>0){
                             $options=array();
@@ -61,10 +67,10 @@ include('reuse_files/header.php');
                     ?>
                 </div>
 
-                <div class="w-75 m-1">
-                    <?php echo form_label('start date  of project ', 'start_date',['class'=>'visually m-1'] );?>
+                <div class="w-75 my-2">
+                    <?php echo form_label('Start Date Of Project ', 'start_date',['class'=>'visually my-1'] );?>
                     <?php
-                       $data = array(
+                        $data = array(
                         'type' => 'date',
                         'name' => 'start_date',
                         'placeholder' => 'yyyy-mm-dd'
@@ -73,8 +79,8 @@ include('reuse_files/header.php');
                     ?>
                     
                 </div>
-                <div class="w-75 m-1">
-                    <?php echo form_label('end date  of project ', 'end_date',['class'=>'visually m-1'] );?>
+                <div class="w-75 my-2">
+                    <?php echo form_label('End Date Of Project ', 'end_date',['class'=>'visually my-1'] );?>
                     <?php
                         $data = array(
                             'type' => 'date',
@@ -83,19 +89,19 @@ include('reuse_files/header.php');
                             );
                             echo form_input($data); 
                     ?>
-                   
+                    
                 </div>  
                 <!--project image uplord  -->
                 
-                <div class="w-75 m-3">
-                    <?php echo form_label('upload your image', 'project_photo',['class'=>'visually m-3'] );?>
+                <div class="w-75 my-2">
+                    <?php echo form_label('upload your image', 'project_photo',['class'=>'visually my-1'] );?>
                     <?php echo form_upload([ 'name'=>'project_photo' , 'class'=>'form-control','value'=>set_value('project_photo') ,'id'=>'user_photo' ]);?>
                     <span class="text-danger"><?php echo form_error('project_photo');?></span>
                     <?php if(isset($upload_error)){echo $upload_error;}?>
                 
                 </div>
-                 
-                <div class="w-75 m-1">
+                    
+                <div class="w-75 m-2">
                     <?php echo form_submit(['class'=>'btn btn-primary','name'=>'submit','value'=>'submit']);?>
                     <?php echo form_reset(['class'=>'btn btn-primary','name'=>'RESET','value'=>'reset']);?>
                 </div>
@@ -116,7 +122,12 @@ include('reuse_files/header.php');
                     </div>
                 <?php } ?>
             </form>
-        </div>
+            
         <!--blog form end -->
+        </div>
+        
+    </div>
+</div>
+
 <!-- footer -->
 <?php include('reuse_files/footer.php');?>

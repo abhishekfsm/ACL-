@@ -13,17 +13,17 @@ include('reuse_files/header.php');
     <?php include('reuse_files/side_bar.php');?>
     <!-- body part start -->
     <div class="col-10 my-2">
-        <div class="container border border-primary">
+        <div class="container">
             <p class="text-center">add roles with permission</p>
             <?php echo form_open('add_role_handler/collect_roles',' class="column g-3"');?>
-                <div class="w-75 m-3">
-                    <?php echo form_label('roles Name', 'name',['class'=>'visually m-3'] );?>
-                    <?php echo form_input([ 'name'=>'name' , 'class'=>'form-control', 'id'=>'name' ,'value'=>set_value('name'), 'PLACEHOLDER'=>'ENTER ROLES NAME']);?>
+                <div class="w-75 my-3">
+                    <?php echo form_label('Roles Name', 'name',['class'=>'visually my-2 font-weight-bold'] );?>
+                    <?php echo form_input([ 'name'=>'name' , 'class'=>'form-control', 'id'=>'name' ,'value'=>set_value('name'), 'PLACEHOLDER'=>'ENTER NEW ROLES NAME']);?>
                     <span class="text-danger"><?php echo form_error('name');?></span>
                 </div>
                 
-                <div class="w-75 m-3">
-                    <?php echo form_label('select method', 'select_method',['class'=>'visually m-3'] );?>
+                <div class="w-75 my-3">
+                    <?php echo form_label('Select Method', 'select_method',['class'=>'visually my-2 font-weight-bold'] );?>
                     <br>
                     <!-- here make checkbox for select methods -->
                     <?php

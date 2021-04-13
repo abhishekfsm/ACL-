@@ -78,6 +78,22 @@ class Registration_model extends CI_Model{
 
     }
 
+    //here update user profile
+    public function update_user_profile($user_data){
+        if(isset($user_data)){
+            $this->db->where('user_id', $user_data['user_id']);
+            $this->db->update('users',$user_data);
+            if($this->db->affected_rows() == true){
+                return true;
+            } else{
+                return false;
+            }
+            
+        }else{
+            return false;
+        }
+    }
+
 
 
 }

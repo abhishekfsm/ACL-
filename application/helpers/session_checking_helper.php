@@ -1,7 +1,7 @@
 <?php
   function user_check(){
     if(!isset($_SESSION['user_logged_in'])){
-        redirect('login_handler');
+        redirect('home_handler');
       }
     
   }

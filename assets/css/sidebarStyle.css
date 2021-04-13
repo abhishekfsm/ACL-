@@ -9,7 +9,7 @@
 }
 .side_bar{
     /* border: 1px solid red; */
-    /* height: 90vh; */
+    height: 90vh;
     /* width: 200px; */
     background: #0d6efd;
 }
@@ -21,6 +21,7 @@
     font-size: 20px;
     color:white;
     word-wrap: break-word;
+   
 }
 .user_info img{
     width:150px;
@@ -33,10 +34,8 @@
     padding: 5px;
     margin: 0 5px 0 5px;
 }
-.dashboard-list{
-    border: 3px solid rgb(17, 194, 218);
-    
-}
+
+
 .dashboard-list #items{
     padding: 0;
     display: block;
@@ -52,8 +51,8 @@ a{
     color:white;
 }
 .item:hover {
-    background-color: rgb(17, 194, 218);
-    border: 1px solid white;
+    background-color: rgb(34,52,244);
+    /* border: 1px solid white; */
   }
 
 /* table css apply */

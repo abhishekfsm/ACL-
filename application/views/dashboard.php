@@ -1,13 +1,4 @@
-<?php
-// if(isset($_SESSION['user_logged_in'])){
-//   include('header.php');
-// }
-// else{
-//   redirect('login_handler');
-// }
-// $this->load->helper('session_checking');
-// user_check();
-?>
+
 <?php  include('reuse_files/header.php'); ?>
 <?php //print_r($users_data);?>
 <div class="row w-100">
@@ -18,9 +9,7 @@
   <div class="col-10 my-5">
     <table  class="  table table-striped ">
       <thead class="thead-dark bg-dark text-white">
-        <tr class ="text-center">
-          <th colspan="7">view all users</th>
-        </tr>
+
         <tr>
           <th scope="col">user id</th>
           <th scope="col">user name</th>

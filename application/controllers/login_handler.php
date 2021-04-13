@@ -2,7 +2,22 @@
 class Login_handler extends CI_Controller{
     function index(){
         // $this->load->helper('form'); 
-        $this->load->view('login');
+        if(isset($_SESSION['user_logged_in'])){
+            if(isset($_SESSION['user_role_id']) && $_SESSION['user_role_id']=='33'){
+                   
+                redirect('dashboard_handler');  
+            } else if(isset($_SESSION['user_role_id']) && $_SESSION['user_role_id']=='34'){
+                redirect('view_project_handler');
+            }else if(isset($_SESSION['user_role_id']) && $_SESSION['user_role_id']=='35'){
+                redirect('view_task_handler');
+            }else{
+                redirect('home_handler');
+            }
+
+        }else{
+            $this->load->view('login');
+        
+        }
     }
     public function login_user(){
         // echo "login function here data manage for login";

@@ -17,14 +17,11 @@ include('reuse_files/header.php');
     <div class="container text-right m-2">
         <a class="btn btn-primary  " href="http://[::1]/ACL/index.php/add_role_handler">ADD ROLE</a>
     </div>
-    <div class="container border border-primary m-2">
+    <div class="container m-2">
       
-      <!-- <h5 class="text-center"> views all roles</h5> -->
+      <p class="text-center"> views all roles</p>
       <table  class="table table-striped">
         <thead class="thead-dark bg-dark text-white">
-          <tr>
-            <th colspan="3" class="text-center">views all roles</th>
-          </tr>
           <tr>
             <th scope="col">role id</th>
             <th scope="col">role name</th>

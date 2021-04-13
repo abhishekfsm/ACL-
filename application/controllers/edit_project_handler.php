@@ -58,7 +58,6 @@ class edit_project_handler extends CI_Controller{
 
     //here get all update data of edit project form and receive and update it
     public function collect_project_info(){
-        
         $project_assign_old=$this->get_project_assign($_POST['project_id']);
         $old_managers=array();
         if(isset($project_assign_old) && count($project_assign_old)>0){

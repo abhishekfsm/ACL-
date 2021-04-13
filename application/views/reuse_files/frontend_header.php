@@ -38,6 +38,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="<?php echo base_url('index.php/login_handler');?>">login</a>
                 </li>
+                <?php 
+                    if(isset($_SESSION['user_logged_in'])){
+                        echo '<li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="'.base_url('index.php/logout').'">logout</a>
+                            </li>';
+                    }
+                ?>
 
             </ul>   
         </div>

@@ -13,12 +13,13 @@ include('reuse_files/header.php');
     <?php include('reuse_files/side_bar.php');?>
     <!-- body part start -->
     <div class="col-10 my-2">
-    <div class="container border border-primary">
+
+    <div class="container ">
             <p class="text-center">add permission(methods)</p>
             <?php echo form_open('add_methods_handler/collect_methods',' class="column g-3"');?>
-                <div class="w-75 m-3">
+                <div class="w-75 my-3">
 
-                    <?php echo form_label('METHODS Name', 'name',['class'=>'visually m-3'] );?>
+                    <?php echo form_label('Method Name', 'name',['class'=>'visually my-2'] );?>
                     <?php echo form_input([ 'name'=>'name' , 'class'=>'form-control', 'id'=>'name' ,'value'=>set_value('name'), 'PLACEHOLDER'=>'ENTER METHODS NAME']);?>
                     <span class="text-danger"><?php echo form_error('name');?></span>
                 </div>

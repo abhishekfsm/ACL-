@@ -12,9 +12,9 @@
 <div class="container text-right m-2">
     <a class="btn btn-primary  " href="http://[::1]/ACL/index.php/Add_methods_handler">ADD METHOD</a>
 </div>
-<div class="container border border-primary m-4">
+<div class="container m-2">
   
-  <h5 class="text-center"> views all method</h5>
+  <p class="text-center"> views all method</p>
   <table  class="table table-striped text-center">
     <thead class="thead-dark bg-dark text-white">
         <tr>
