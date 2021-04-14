@@ -3,13 +3,11 @@
     padding: 0;
     list-style: none;
     box-sizing: border-box;
-    text-decoration: none;
-    
-    
+    text-decoration: none; 
 }
 .side_bar{
     /* border: 1px solid red; */
-    height: 90vh;
+    height: 100vh;
     /* width: 200px; */
     background: #0d6efd;
 }
@@ -50,8 +48,12 @@ a{
     text-decoration: none;
     color:white;
 }
+a:hover{
+    color:white;
+}
 .item:hover {
     background-color: rgb(34,52,244);
+    color:white;
     /* border: 1px solid white; */
   }
 

@@ -1,5 +1,5 @@
 <?php
-include('reuse_files/frontend_header.php');
+include('reuse_files/header.php');
 ?>
 <?php
 // // todo change
@@ -8,28 +8,14 @@ include('reuse_files/frontend_header.php');
 // }
 
 // ?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
-    <title>login Form!</title>
-  </head>
-  <body>
-  <!-- navbar -->
-<!-- navbar-end -->
-
-    <div class="container">
+<div class="h-100 border border-primary d-flex justify-content-center align-items-center" class="bg-image" 
+     style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');">
+    <div class="container border border-primary w-25 ">
         <h5 class="text-center">login  form</h5>
-        <div class="d-flex justify-content-center">
+        
             <!-- <form class="column g-3" method="POST" action=""> -->
             <?php echo form_open('login_handler/login_user',' class="column g-3"');?>       
-                    <div class="m-2">
+                    <div class=" m-2">
                         <?php echo form_label('Email Id', 'name',['class'=>'visually mY-1'] );?>
                         <?php echo form_input([ 'name'=>'email' , 'class'=>'form-control' ,'value'=>set_value('email'), 'PLACEHOLDER'=>'ENTER YOUR EMAIL']);?>
                         <span class="text-danger"><?php echo form_error('email');?></span>     
@@ -42,8 +28,10 @@ include('reuse_files/frontend_header.php');
                     </div>
                 
                     <div class="col-auto m-3">
-                        <?php echo form_submit(['class'=>'btn btn-primary','name'=>'login_submit','value'=>'submit']);?>
-                    </div>  
+                        <?php echo form_submit(['class'=>'btn btn-primary','name'=>'login_submit','value'=>'login']);?>
+                    </div> 
+                    <!-- registration account link -->
+                    <p class="m-3">Not Registered ?<a class=" text-primary" href="<?php echo base_url('index.php/registration_handler');?>">Create an account</a></p>
                     <!-- alert box -->  
                     <!--registartion sucessful message print  -->
                     <?php if ($this->session->flashdata('success')) { ?>
@@ -65,9 +53,10 @@ include('reuse_files/frontend_header.php');
                         </div>
                     <?php } ?>
             </form>
-            
-        </div>
-    </div>   
+        
+    </div>
+</div>
+       
 <?php
-    include('reuse_files/frontend_footer.php');
+    include('reuse_files/footer.php');
 ?>

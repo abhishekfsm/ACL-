@@ -35,7 +35,7 @@ class editProfile_handler extends CI_Controller {
             if(empty($_FILES['user_photo']['name'])){
                 echo 'phot not set';
                 $user_data = array(
-                    'user_id'=>$suer_id,
+                    'user_id'=>$user_id,
                     'user_name' => $user_name,
                     'user_email' => $user_email,
                     'user_password' => $user_password,
@@ -64,11 +64,24 @@ class editProfile_handler extends CI_Controller {
                         'user_password' => $user_password,
                         'user_image' =>$user_image_path
                     ); 
-
             }
+            // print_r($user_data);
+            // exit;
             $this->load->model('registration_model');
             $editProfile_status=$this->registration_model->update_user_profile($user_data); 
             if(isset($editProfile_status)){
+                //here fetch data from db and update session
+                $this->load->model('registration_model');
+                $update_user=$this->registration_model->get_user_by_id($user_id);
+                // echo 'after update';
+                // print_r($update_user);
+                $newdata = array(
+                    'user_name' =>$update_user[0]['user_name'],
+                    'user_email' =>$update_user[0]['user_email'],
+                    'user_image'=> $update_user[0]['user_image'],
+                );
+                $this->session->set_userdata($newdata);
+                //==========================================
                 $this->session->set_flashdata('edit_pofile_success', 'your profile sucessfully updated');
                 redirect('editProfile_handler');  
             }  else{

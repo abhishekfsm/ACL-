@@ -25,6 +25,14 @@ class Project_model extends CI_Model{
 		    redirect('project_handler');
         }
     }
+
+    //fetch projects data for home page
+    public function get_project_form_homePage(){
+        $this->db->select(array('project_name','project_description','project_image'));
+        $this->db->from('projects');
+        $query=$this->db->get();
+        return $query->result_array();
+    }
     
     //fetch all projects data
     public function get_projects() {

@@ -2,11 +2,12 @@
 include('reuse_files/header.php');
 ?>
 <!-- main body -->
-<div class="row w-100">
+<div class="row w-100 h-100 border border-primary">
   <!-- side bar start -->
   <?php include('reuse_files/side_bar.php');?>
   <!-- body part start -->
-  <div class="col-10 my-2">
+  <!-- TODO DIV HEIGH AND OVERFLOW PROPERTY -->
+  <div class="col-10  h-100 border border-primary ">
     <!--making add role button  -->
     <div class="container text-right m-2">
         <?php
@@ -54,7 +55,7 @@ include('reuse_files/header.php');
       </div>
     </div>
     <!-- ==========end============ -->
-    <div class="container  m-2">
+    <div id="content_body" class="container m-2 h-75 d-inline-block overflow-auto">
       
       <P class="text-center"> views all projects</P>
       <table  class="table table-striped text-center">

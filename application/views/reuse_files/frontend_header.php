@@ -1,4 +1,4 @@
-<!doctype html>
+
 <html lang="en">
 
    <head>
@@ -12,13 +12,15 @@
         <!-- fontawesome -->
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
         <!-- siede bar link -->
-        <?php echo link_tag('assets/css/side_bar_style.css');?>
+        <?php echo link_tag('assets/css/sidebar_Style.css');?>
+        <!-- HOMEPAGE CSS  link -->
+        <?php echo link_tag('assets/css/HomePageStyle.css');?>
         <title></title>
     </head>
 <body>
 
 <!-- navbar start -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark  fixed-top bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">ACL</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,6 +31,12 @@
             
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="<?php echo base_url('index.php/home_handler');?>">home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#my_portfolio">My Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#contact_us">Contact Us</a>
                 </li>
 
                 <li class="nav-item">

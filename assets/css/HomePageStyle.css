@@ -1,0 +1,15 @@
+html {
+    scroll-behavior: smooth;
+}
+.contact_info li{
+    text-decoration: none;
+    list-style: none;
+}
+.contact_social li{
+    /* display:inline; */
+}
+/* content body add scroll bar */
+#content_body{
+    /* height: 50%; */
+    /* overflow: scroll; */
+}

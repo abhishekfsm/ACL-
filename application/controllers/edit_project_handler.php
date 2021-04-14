@@ -125,7 +125,7 @@ class edit_project_handler extends CI_Controller{
 
             ///===============================IMAGE========
             if(!empty($_FILES['project_photo']['name'])){
-                // echo 'image is  set';
+                echo 'image is  set';
                 $config = array(
                  'upload_path' => "./uploads/projects_image",
                  'allowed_types' => "gif|jpg|png|jpeg",
@@ -137,7 +137,8 @@ class edit_project_handler extends CI_Controller{
                  $this->load->library('upload',$config);
                  $this->upload->do_upload('project_photo');
                  $data = array('image_metadata' => $this->upload->data());
-                 $project_image_path=base_url("uploads/projects_image/".$data['image_metadata']['raw_name'].$data['image_metadata']['file_ext']);         
+                 $project_image_path=base_url("uploads/projects_image/".$data['image_metadata']['raw_name'].$data['image_metadata']['file_ext']);  
+                 print_r($data);       
                  //array prepare with image for project_information
                  $project_data = array(
                     'project_name' => $project_name,
@@ -151,7 +152,7 @@ class edit_project_handler extends CI_Controller{
 
              }
              else{
-                // ECHO 'IMAGE IS NOT SET';
+                ECHO 'IMAGE IS NOT SET';
                 //array prepare with-out image for project_information
                 $project_data = array(
                     'project_name' => $project_name,
@@ -161,6 +162,7 @@ class edit_project_handler extends CI_Controller{
                     'start_date' => $project_start_date,
                     'end_date'=>$project_end_date
                 );  
+           
 
 
              }
@@ -168,7 +170,7 @@ class edit_project_handler extends CI_Controller{
             //////IMAGE END================================
 
             //prepare data sending to model for update projects information
-         
+            
             $this->load->model('project_model');
             $flag=$this->project_model->update_project_information($project_data,$project_id);
             
