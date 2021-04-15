@@ -53,14 +53,14 @@ include('reuse_files/frontend_header.php');
 <!-- ======= -->
 <hr class='mx-5'>
 <!-- cards for represent projects -->
-<div class="container d-flex flex-wrap align-content-start px-5">
+<div class="container-fluid px-5 py-4 d-flex flex-wrap align-content-start">
   <?php
     if(isset($projects) && count($projects)>0){
       foreach($projects as $project){
         // print_r($project);
   ?>
         <!-- card one -->
-        <div class="m-3 card" style="width: 18rem;">
+        <div class="mx-5 mt-3 card" style="width: 18rem;">
             <img src="<?php echo $project['project_image'];?>" class="card-img-top" alt="..." width="200" height="200">
             <div class="card-body">
               <h5><?php echo $project['project_name'];?></h5>
@@ -76,20 +76,7 @@ include('reuse_files/frontend_header.php');
     }
 
   ?>  
-        <!-- card one -->
-        <div class=" m-3 card" style="width: 18rem;">
-            <img src="https://source.unsplash.com/1200x450?computer" class="card-img-top" alt="..." width="200" height="200">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <!-- card one -->
-        <div class="m-3 card" style="width: 18rem;">
-            <img src="https://source.unsplash.com/1200x450?computer" class="card-img-top" alt="..." width="200" height="200">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
+        
 </div>
 
 <!-- contact us section start -->
@@ -101,20 +88,20 @@ include('reuse_files/frontend_header.php');
     <div class="jumbotron ">
       <div class="container text-center">
         <h3>Contact Us</h3> 
-        <p>"OUR TEAM INCLUDES GREAT THINKERS. YOU WOULD LOVE TO WORK WITH THEM AS THEY ARE JUST AMAZING PEOPLE"</p>     
+        <p>"Our Team Include Great Thinker. You Would Love To Work With Them As They Are Just Amazing People"</p>     
       </div>
     </div>
     <!-- form and address -->
     <div class="row">
       <!-- first column -->
-      <div class=" mx-5 col-7">
+      <div class=" Px-5 col-7  ">
           <div class="well well-smn m-5">
               <form class="form-horizontal" method="post">
                   <fieldset>
                       <!-- <legend class="text-center header">Contact us</legend> -->
                       <div class="form-group">
                           
-                          <div class="col-md-8 my-2">
+                          <div class="col-md-10 my-2">
                             <!-- <i class=" m-2 fs-4 fa fa-user bigicon"></i> -->
                             <input id="name" name="name" type="text" placeholder=" Name" class="form-control">
                             <span id="name_validation" class ="text-danger"></span>
@@ -123,7 +110,7 @@ include('reuse_files/frontend_header.php');
 
                       <div class="form-group">
                           
-                          <div class="col-md-8 my-2">
+                          <div class="col-md-10 my-2">
                             <!-- <i class=" m-2 fs-4 fas fa-envelope-open-text"></i> -->
                             <input id="email" name="email" type="text" placeholder="Email Address" class="form-control">
                             <span id="email_validation" class ="text-danger"></span>
@@ -132,7 +119,7 @@ include('reuse_files/frontend_header.php');
 
                       <div class="form-group">
                           
-                          <div class="col-md-8 my-2">
+                          <div class="col-md-10 my-2">
                               <!-- <i class="m-2 fs-4 fa fa-phone-square bigicon"></i> -->
                               <input id="phone" name="phone" type="text" placeholder="Phone" class="form-control">
                               <span id="phone_validation" class ="text-danger"></span>
@@ -141,7 +128,7 @@ include('reuse_files/frontend_header.php');
 
                       <div class="form-group">
                           
-                          <div class="col-md-8 my-2">
+                          <div class="col-md-10 my-2">
                             <!-- <i class=" m-2 fs-4 fas fa-pencil-alt"></i> -->
                             <textarea class="form-control" id="message" name="message" placeholder="Enter your massage for us here. We will get back to you within 2 business days." rows="7"></textarea>
                             <span id="message_validation" class ="text-danger"></span>
@@ -149,7 +136,7 @@ include('reuse_files/frontend_header.php');
                       </div>
                       <!-- show message -->
                       <div class="form-group">
-                        <div class="col-md-8 my-2 text-center bg-danger">
+                        <div class="col-md-10 my-2 text-center bg-danger">
                           <span id="contact_success" class="text-white" ></span>
                         </div>
                       </div>
@@ -165,7 +152,7 @@ include('reuse_files/frontend_header.php');
       </div>
       <!-- second column for show address -->
       <div class="col-4 " >
-          <div class="contact_text p-5">
+          <div class="contact_text p-2">
               <p >Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
               tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
               quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
@@ -178,12 +165,12 @@ include('reuse_files/frontend_header.php');
               </div>
               <hr class="m-2" >
               <h3>follow us</h3>
-              <ul class="contact_social ">
+              <DIV class="contact_social ">
                   <li class="text-primary font-weight-bold" ><i class=" m-2 fs-4 fab fa-facebook-square"></i> Facebook</li>
                   <li class="text-danger font-weight-bold"><i class=" m-2 fs-4 fab fa-google-plus-g"></i>Google+</li>
                   <li class="text-success font-weight-bold"><i class="m-2 fs-4 fab fa-whatsapp-square"></i> Whatsapp</li>
                   <li class="text-info font-weight-bold"><i class=" m-2 fs-4 fab fa-twitter"></i> Twitter</li>
-              </ul>                            
+              </DIV>                            
           </div>
 
       </div>

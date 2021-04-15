@@ -8,9 +8,9 @@ include('reuse_files/header.php');
 // }
 
 // ?>
-<div class="h-100 border border-primary d-flex justify-content-center align-items-center" class="bg-image" 
+<div class="h-100  d-flex justify-content-center align-items-center" class="bg-image" 
      style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');">
-    <div class="container border border-primary w-25 ">
+    <div class="container  w-25 shadow-lg p-3 mb-5  ">
         <h5 class="text-center">login  form</h5>
         
             <!-- <form class="column g-3" method="POST" action=""> -->
@@ -28,7 +28,7 @@ include('reuse_files/header.php');
                     </div>
                 
                     <div class="col-auto m-3">
-                        <?php echo form_submit(['class'=>'btn btn-primary','name'=>'login_submit','value'=>'login']);?>
+                        <?php echo form_submit(['class'=>'w-100 rounded btn btn-primary','name'=>'login_submit','value'=>'Login']);?>
                     </div> 
                     <!-- registration account link -->
                     <p class="m-3">Not Registered ?<a class=" text-primary" href="<?php echo base_url('index.php/registration_handler');?>">Create an account</a></p>

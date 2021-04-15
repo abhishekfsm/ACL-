@@ -27,11 +27,11 @@ if(isset($project) && count($project)==1){
 ?>
 <?php include('reuse_files/header.php')?>
 <!-- main body -->
-<div class="row w-100">
+<div class="row h-100 w-100">
     <!-- side bar start -->
     <?php include('reuse_files/side_bar.php');?>
     <!-- body part start -->
-    <div class="col-10 my-2">
+    <div class="col-10   h-100 overflow-auto ">
         <!--form start  -->
         <div class="container ">
             <p class="text-center">EDIT PROJECT</p>

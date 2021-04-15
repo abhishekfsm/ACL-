@@ -30,11 +30,11 @@
 
 ?>
 <!-- main body -->
-<div class="row w-100">
+<div class="row  h-100 w-100">
     <!-- side bar start -->
     <?php include('reuse_files/side_bar.php');?>
 
-    <div class="col-10 my-2">
+    <div class="col-10  h-100 overflow-auto">
         <!--form start  -->
         <div class="container ">
             <p class="text-center">EDIT TASK</p>

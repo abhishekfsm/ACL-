@@ -1,4 +1,4 @@
-<div class=" col-2 side_bar border border-primary">
+<div class=" col-2 side_bar  border border-primary">
       <div class="w-100 user_info">
 
           <img src="<?php if(isset($_SESSION['user_image'])){echo $_SESSION['user_image'];}?>" alt="user_photo">

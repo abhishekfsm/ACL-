@@ -9,10 +9,10 @@ include('reuse_files/header.php');
 ?>
 <div class="row w-100">
     <!-- side bar start -->
-    <?php include('side_bar.php');?>
+    <?php include('reuse_files/side_bar.php');?>
     <!-- body part start -->
     <div class="col-10 my-1">
-        <div class="container border border-secondary">
+        <div class="container ">
             <p class="text-center my-2">EDIT  ROLE</p>
             <hr>
 

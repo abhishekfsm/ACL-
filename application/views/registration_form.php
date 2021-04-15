@@ -1,8 +1,10 @@
 <?php
 include('reuse_files/header.php');
 ?>
-<div class="h-100  d-flex justify-content-center align-items-center">
-    <div class="container w-75 d-flex justify-content-center ">
+<div class="h-100  d-flex justify-content-center align-items-center" class="bg-image" 
+     style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/75.jpg');">
+    <div class="container w-25 d-flex flex-column justify-content-center shadow-lg p-3 mb-5 ">
+    <h5 class="text-center ">Registration  form</h5>
         <?php echo form_open_multipart('registration_handler/user_registration',' class="column g-3"');?>
             <div class=" m-3">
 
