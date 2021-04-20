@@ -15,5 +15,12 @@ class ContactUs_model extends CI_Model{
             return false;
         }
     }
+
+    // fetch all contacts list
+    public function fetch_contacter(){
+        $query=$this->db->get('contact_us');
+        return $query->result_array();
+      
+    }
 }
 ?>

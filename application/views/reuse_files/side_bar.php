@@ -20,6 +20,9 @@
                     echo '<li class=" item nav-item">
                             <a  href="'. base_url('index.php/view_method_handler').'">METHOD</a>
                         </li>';
+                    echo '<li class=" item nav-item">
+                        <a  href="'. base_url('index.php/ContactList_handler').'">Contact list</a>
+                    </li>';
                 }
                     
             ?> 

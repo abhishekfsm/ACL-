@@ -1,12 +1,14 @@
 <?php 
 require APPPATH . 'libraries/REST_Controller.php';
-     
+require APPPATH . 'libraries/vendor/autoload.php';
+use \Firebase\JWT\JWT;
+   
 class Rest_api extends REST_Controller {
     
-	  /**
-     * Get All Data from this method.
-     *
-     * @return Response
+    /**
+    * Get All Data from this method.
+    *
+    * @return Response
     */
     public function __construct() {
        parent::__construct();
@@ -31,12 +33,11 @@ class Rest_api extends REST_Controller {
         // $input = $this->input->post();
         // print_r($input);
         // below line handel file data
-        $this->response($input, REST_Controller::HTTP_OK); 
+        // $this->response($input, REST_Controller::HTTP_OK); 
         if($_SERVER['REQUEST_METHOD']=='POST'){
 
             $users_data = json_decode(file_get_contents('php://input'), true);
             // print_r($data[0]['user_name']);
-
             //array prepare for send to model
             $data=array();  //that is used for send to model
             foreach($users_data as $user){
@@ -45,11 +46,41 @@ class Rest_api extends REST_Controller {
                     'password'=>$user['user_password']
                 );
             }
+
             $this->load->model('api_model');
             $inser_flag=$this->api_model->insert($data);
             if($inser_flag){
+                // here generate token
+                $secret_key="abhi";
+                $iss="localhost";
+                $iat=time();
+                // $nbf=$iat+10 ;
+                // $exp=$iat+120;
+                $user_info=array(
+                    'name'=>$users_data[0]['user_name']
+                );
+                $payload_info=array(
+                    "iss" =>$iss ,
+                    "iat" => $iat,
+                    // "nbf" =>$nbf ,
+                    // "exp"=> $exp,
+                    "aud"=>"abhi",
+                    "data"=>$user_info
+                );
+                $token=JWT::encode($payload_info,$secret_key);
+                $decoded = JWT::decode($token, $secret_key, array('HS256'));
+                
+                //token====ending
                 $this->response( REST_Controller::HTTP_CREATED);
-            }else{
+                header('Content-Type: application/json');
+                echo json_encode(array('status'=>"correct",
+                                        'data'=>$data,
+                                        'token'=>$token,
+
+                                        
+                                ));
+                echo json_encode(array('decode'=>$decoded));
+            } else {
                 $this->response( REST_Controller::HTTP_NOT_IMPLEMENTED);
             }
             // header('Content-Type: application/json');
@@ -78,6 +109,7 @@ class Rest_api extends REST_Controller {
             $update_flag=$this->api_model->update($data ,$id);
             if($update_flag){
                 $this->response( REST_Controller::HTTP_OK);
+                
             }else{
                 $this->response( REST_Controller::HTTP_NOT_IMPLEMENTED);
             }
@@ -106,7 +138,7 @@ class Rest_api extends REST_Controller {
 
     }
 
-    //put example
+    //put example -----TODO
     public function user_put($id=null){
         if(isset($id)){
 
