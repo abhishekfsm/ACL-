@@ -11,26 +11,39 @@ class Rest_api extends REST_Controller {
     * @return Response
     */
     public function __construct() {
-       parent::__construct();
+
+        parent::__construct();
        
     }
 
+    //get user data in api-form
+    public function user_get($id=null){
+        // echo "get request";
+        $this->load->model('api_model');
+        if(isset($id)){
+            $users=$this->api_model->get_users_byId($id);
+            if($users==0){
+                header('Content-Type: application/json');
+                echo json_encode(array("status"=>"user not exist","message"=>'enter valid  id of user'));
 
-    public function user_get(){
-        if($_SERVER['REQUEST_METHOD']=='GET'){
-            // echo "get request";
-            $this->load->model('api_model');
-            $users=$this->api_model->get_users();
-            $this->response($users, REST_Controller::HTTP_OK); 
+            }else{
+                $this->response($users, REST_Controller::HTTP_OK);
+            }
+            
+
         }else{
-            echo "another request";
-        }
+            $users=$this->api_model->get_users();
+            $this->response($users, REST_Controller::HTTP_OK);
+        } 
+   
     }
 
     //for insert data
     public function user_post(){
-        //below lines used for form data
-        // $input = $this->input->post();
+        // print_r($_POST);
+        // //below lines used for form data
+        // $input = $this->input->post('user_name');
+        // echo $input;
         // print_r($input);
         // below line handel file data
         // $this->response($input, REST_Controller::HTTP_OK); 
@@ -50,6 +63,7 @@ class Rest_api extends REST_Controller {
             $this->load->model('api_model');
             $inser_flag=$this->api_model->insert($data);
             if($inser_flag){
+
                 // here generate token
                 $secret_key="abhi";
                 $iss="localhost";
@@ -68,18 +82,19 @@ class Rest_api extends REST_Controller {
                     "data"=>$user_info
                 );
                 $token=JWT::encode($payload_info,$secret_key);
-                $decoded = JWT::decode($token, $secret_key, array('HS256'));
-                
+                $decoded = JWT::decode($token, $secret_key, array('HS256'),true);
+                //fetch user info from decoded token 
+                $user_name=$decoded->data->name;
                 //token====ending
+
                 $this->response( REST_Controller::HTTP_CREATED);
                 header('Content-Type: application/json');
                 echo json_encode(array('status'=>"correct",
                                         'data'=>$data,
-                                        'token'=>$token,
-
-                                        
+                                        'token'=>$token,                        
                                 ));
-                echo json_encode(array('decode'=>$decoded));
+                // echo json_encode(array('decode'=>$decoded));
+                echo json_encode(array('user name'=>$user_name));
             } else {
                 $this->response( REST_Controller::HTTP_NOT_IMPLEMENTED);
             }
@@ -100,22 +115,27 @@ class Rest_api extends REST_Controller {
             $data=array();  //that is used for send to model
             foreach($users_data as $user){
                 $data=array(
-    
                     'name'=>$user['user_name'],
                     'password'=>$user['user_password']
                 );
             }
             $this->load->model('api_model');
             $update_flag=$this->api_model->update($data ,$id);
-            if($update_flag){
+            if($update_flag=="update"){
                 $this->response( REST_Controller::HTTP_OK);
                 
+            }else if($update_flag=="user_not_found"){
+                header('Content-Type: application/json');
+                echo json_encode(array("status"=>"user not exist","message"=>'enter valid  id of user'));
+
             }else{
-                $this->response( REST_Controller::HTTP_NOT_IMPLEMENTED);
+            
+                $this->response(REST_Controller::HTTP_NOT_IMPLEMENTED);
             }
             
         }else{
-            echo "another request";
+            header('Content-Type: application/json');
+            echo json_encode(array("status"=>"id not get","message"=>'enter id of user'));
         }
 
     }
@@ -123,7 +143,6 @@ class Rest_api extends REST_Controller {
     //for delete data
     public function user_delete($id=null){
         if(isset($id)){
-        
             $this->load->model('api_model');
             $delete_flag=$this->api_model->delete($id);
             if($delete_flag){
@@ -133,22 +152,56 @@ class Rest_api extends REST_Controller {
             }
             
         }else{
-            echo "another request";
+            header('Content-Type: application/json');
+            echo json_encode(array("status"=>"id not get","message"=>'enter id of user'));
         }
 
     }
 
-    //put example -----TODO
+
+    //put -----TODO
     public function user_put($id=null){
         if(isset($id)){
+            $users_data = json_decode(file_get_contents('php://input'), true);
+            //array prepare for send to model
+            $data=array();  //that is used for send to model
+            foreach($users_data as $user){
+                $data=array(
+                    'name'=>$user['user_name'],
+                    'password'=>$user['user_password']
+                );
+            }
+            $this->load->model('api_model');
+            $update_flag=$this->api_model->update($data ,$id);
+            if($update_flag=="update"){
+                $this->response( REST_Controller::HTTP_OK);
+                
+            }else if($update_flag=="user_not_found"){
+                //here crete new usssssssser
+                $this->load->model('api_model');
+                $inser_flag=$this->api_model->insert($data);
+                if($inser_flag==true){
+                    header('Content-Type: application/json');
+                    echo json_encode(array("status"=>"new user","message"=>'creted successfully'));
+                } else {
+                    $this->response(REST_Controller::HTTP_NOT_IMPLEMENTED);
+                }
 
-            $input = $this->put();
-            $this->response($input, REST_Controller::HTTP_OK);
+            } else {
+            
+                $this->response(REST_Controller::HTTP_NOT_IMPLEMENTED);
+            }
+            
         }else{
-            $this->response($input, REST_Controller::HTTP_NOT_FOUND);
-        }
-        
+            header('Content-Type: application/json');
+            echo json_encode(array("status"=>"id not get","message"=>'enter id of user'));
+        }  
     }
+
+
+
+
+
         // echo "abhishek";
         // print_r($_SERVER);
         // if($_SERVER['REQUEST_METHOD']=='GET'){

@@ -6,19 +6,33 @@ class Api_model extends CI_Model{
         if(isset($data) && count($data)>0){
             if($this->db->insert('api_user',$data)){
                 return true;
-
             }else{
                 return false;
             }
         }else{
             return false;
         }
-
     }
+
     //fetch users
     public function get_users(){
         $query=$this->db->get('api_user');
         return $query->result_array();  
+    }
+    
+    
+    //fetch users api of  specific id 
+    public function get_users_byId($id){
+        $this->db->where('id',$id);
+        $query=$this->db->get('api_user');
+        if($query->num_rows() >= 1){
+            $this->db->where('id',$id);
+            $query=$this->db->get('api_user');
+            return $query->result_array();
+        }else{
+            return $query->num_rows();
+        }
+
     }
 
     //delete user
@@ -38,16 +52,20 @@ class Api_model extends CI_Model{
    
     //update user
     public function update($data ,$id){
-        if(isset($data) && isset($id) && count($data)>0){
+        $this->db->where('id', $id);
+        $query=$this->db->get('api_user');
+        if($query->num_rows()==1){
             $this->db->where('id', $id);
             $this->db->update('api_user',$data);
             if($this->db->affected_rows()>0){
-                return true;
+                return "update";
             }else{
-                return false;
+                return "not_update";
             }
+
         }else{
-            return false;
+           
+            return "user_not_found";
         }
     }
 
