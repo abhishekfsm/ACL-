@@ -14,6 +14,15 @@ class Api_model extends CI_Model{
         }
     }
 
+    //check login fucntion
+    public function login_check($email){
+        $this->db->where("email",$email);
+        $query=$this->db->get('api_user');
+        return $query->result_array();
+
+
+    }
+
     //fetch users
     public function get_users(){
         $query=$this->db->get('api_user');
@@ -69,6 +78,38 @@ class Api_model extends CI_Model{
         }
     }
 
+
+    ///userexistance checking
+    public function exist_user($email){
+        $this->db->where('email',$email);
+        $query=$this->db->get('api_user');
+        if($query->num_rows()<1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    //update token 
+    public function update_token($token,$login_user_email){
+            $this->db->where('email', $login_user_email);
+            $this->db->update('api_user',array('token'=>$token));
+            if($this->db->affected_rows()==1){
+                return true;
+            }else{
+                return false;
+            }
+
+    }
+
+    //fetch token from db by user id
+    public function get_token_by_id($user_id){
+        $this->db->select('token');
+        $this->db->where('id',$user_id);
+        $query=$this->db->get('api_user');
+        return $query->result_array();
+    }
     
 }
 ?>
