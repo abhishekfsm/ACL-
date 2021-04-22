@@ -16,63 +16,129 @@ class Rest_api extends REST_Controller {
        
     }
 
-    //get user data in api-form
-    public function user_get($id=null){
-        $this->load->model('api_model');
+
+    //here create private function for checking token isset or not(return check ,exeption) 
+    private function token_check(){
         $all_headers=getallheaders();
         $token="";
-        $token=$all_headers['Authorization'];
-        print_r($token);
-        if(isset($token)){
-            //==========token expire according to given time==
-            // $secret_key="abhi";
-            // try {
-            //     $decoded = JWT::decode($token, $secret_key, array('HS256'));
-            //  } catch (Exception $e) {
-            //      echo 'Exception catched: ',  $e->getMessage(), "\n";  
-            //  }
-            //===========expire time check end
-
-            
-            $secret_key="abhi";
-            $decoded = JWT::decode($token, $secret_key, array('HS256'),true);
-            $user_id=$decoded->data->id;
-            //now fetch token from db and compare with header token if same then do word ,other option token expire
-            $this->load->model('api_model');
-            $token_from_db=$this->api_model->get_token_by_id($user_id);
-            // print_r($token_from_db[0]['token']);
-            if($token==$token_from_db[0]['token']){
-                echo "token checked";
+        try {
+                $secret_key="abhi";
+                $token=$all_headers['Authorization'];
+                $decoded = JWT::decode($token, $secret_key, array('HS256'));
+                $user_id=$decoded->data->id;
+                //now fetch token from db and compare with header token if same then do word ,other option token expire
                 $this->load->model('api_model');
-                if(isset($id)){
-                    $users=$this->api_model->get_users_byId($id);
-                    if($users==0){
-                        header('Content-Type: application/json');
-                        echo json_encode(array("status"=>"user not exist","message"=>'enter valid  id of user'));
+                $token_from_db=$this->api_model->get_token_by_id($user_id);
+                // print_r($token_from_db[0]['token']);
+                if($token==$token_from_db[0]['token']){
+                    return  "token_checked";
+                }else{
+                    header('Content-Type: application/json');
+                    return json_encode(array("status"=>"token has expired(mismatch with db token)","message"=>'again login'));
+                }
+            } catch (Exception $e) {
+                if($e->getMessage()){
+                    return 'Exception catched: '.$e->getMessage();
+                }
+            } 
+    }
 
-                    }else{
-                        $this->response($users, REST_Controller::HTTP_OK);
-                    }
-                    
+    
+
+    //get user data in api-form
+    public function user_get($id=null){
+        //calling for token checking(with expire time,and db store token)
+        $token_check_flag=$this->token_check();
+        if($token_check_flag=='token_checked'){
+            echo "procced";
+            $this->load->model('api_model');
+            if(isset($id))  {
+                $users=$this->api_model->get_users_byId($id);
+                if($users==0){
+                    header('Content-Type: application/json');
+                    echo json_encode(array("status"=>"user not exist","message"=>'enter valid  id of user'));
 
                 }else{
-                    $users=$this->api_model->get_users();
                     $this->response($users, REST_Controller::HTTP_OK);
                 }
-
-            }else{
-                header('Content-Type: application/json');
-                echo json_encode(array("status"=>"token has expired","message"=>'again login'));
+            
+            } else{
+                $users=$this->api_model->get_users();
+                $this->response($users, REST_Controller::HTTP_OK);
             }
-
-
 
         }else{
             header('Content-Type: application/json');
-            echo json_encode(array("status"=>"token is not set","message"=>'you are not login'));
+            echo json_encode(array("status"=>"exception","message"=>$token_check_flag));
+            
+        }
+    
+        // $this->load->model('api_model');
 
-        } 
+        // $all_headers=getallheaders();
+        // $token="";
+        // // $token=$all_headers['Authorization'];
+        // // print_r($token);
+        // try {
+        //     $secret_key="abhi";
+        //     $token=$all_headers['Authorization'];
+        //     $decoded = JWT::decode($token, $secret_key, array('HS256'));
+        //     print_r($decoded);
+        //     } catch (Exception $e) {
+        //         // echo 'Exception catched: ',  $e->getMessage(), "\n";  
+        //         if($e->getMessage()){
+        //             echo 'Exception catched: ',  $e->getMessage();
+        //         }
+        //     } 
+        
+
+
+        // /start/
+            // if(isset($token)){
+            
+            //     $secret_key="abhi";
+            //     $decoded = JWT::decode($token, $secret_key, array('HS256'),true);
+            //     $user_id=$decoded->data->id;
+            //     //now fetch token from db and compare with header token if same then do word ,other option token expire
+            //     $this->load->model('api_model');
+            //     $token_from_db=$this->api_model->get_token_by_id($user_id);
+            //     // print_r($token_from_db[0]['token']);
+            //     if($token==$token_from_db[0]['token']){
+            //         echo "token checked";
+            //         $this->load->model('api_model');
+            //         if(isset($id)){
+            //             $users=$this->api_model->get_users_byId($id);
+            //             if($users==0){
+            //                 header('Content-Type: application/json');
+            //                 echo json_encode(array("status"=>"user not exist","message"=>'enter valid  id of user'));
+
+            //             }else{
+            //                 $this->response($users, REST_Controller::HTTP_OK);
+            //             }
+                        
+
+            //         }else{
+            //             $users=$this->api_model->get_users();
+            //             $this->response($users, REST_Controller::HTTP_OK);
+            //         }
+
+            //     }else{
+            //         header('Content-Type: application/json');
+            //         echo json_encode(array("status"=>"token has expired","message"=>'again login'));
+            //     }
+
+            // }else{
+            //     header('Content-Type: application/json');
+            //     echo json_encode(array("status"=>"token is not set","message"=>'you are not login'));
+
+            // }
+        // end 
+
+
     }
+    // =================
+
+
 
     //check user existance registartioj time
     public function user_exist_check($email){
@@ -80,7 +146,8 @@ class Rest_api extends REST_Controller {
         return $this->api_model->exist_user($email);
     }
 
-    //for insert data
+
+    //this function is used for user registration ===
     public function user_post(){
         // print_r($_POST);
         // //below lines used for form data

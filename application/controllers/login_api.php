@@ -37,8 +37,8 @@ class Login_api extends REST_Controller{
                     $secret_key="abhi";
                     $iss="localhost";
                     $iat=time();
-                    // $nbf=$iat+10;
-                    // $exp=$iat+20;
+                    $nbf=$iat+10;
+                    $exp=$iat+60;
                     $user_info=array(
                         'id'=>$login_user_id,
                         'email'=>$login_user_email
@@ -46,8 +46,8 @@ class Login_api extends REST_Controller{
                     $payload_info=array(
                         "iss" =>$iss ,
                         "iat" => $iat,
-                        // "nbf" =>$nbf ,
-                        // "exp"=> $exp,
+                        "nbf" =>$nbf ,
+                        "exp"=> $exp,
                         "aud"=>"abhi",
                         "data"=>$user_info
                     );
